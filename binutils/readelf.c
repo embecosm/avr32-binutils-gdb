@@ -572,6 +572,7 @@ guess_is_rela (unsigned int e_machine)
     case EM_AVR:
     case EM_AVR32:
     case EM_AVR_OLD:
+    case EM_AVR32_OLD:
     case EM_BLACKFIN:
     case EM_CR16:
     case EM_CRIS:
@@ -1032,6 +1033,7 @@ dump_relocations (FILE * file,
 	  break;
 
 	case EM_AVR32:
+	case EM_AVR32_OLD:
 	  rtype = elf_avr32_reloc_type (type);
 	  break;
 
@@ -2018,6 +2020,7 @@ get_machine_name (unsigned e_machine)
     case EM_ECOG16:		return "Cyan Technology eCOG16 family";
     case EM_ETPU:		return "Freescale Extended Time Processing Unit";
     case EM_SLE9X:		return "Infineon Technologies SLE9X core";
+    case EM_AVR32_OLD:
     case EM_AVR32:		return "Atmel Corporation 32-bit microprocessor family";
     case EM_STM8:		return "STMicroeletronics STM8 8-bit microcontroller";
     case EM_TILE64:		return "Tilera TILE64 multicore architecture family";
@@ -9839,6 +9842,9 @@ is_32bit_abs_reloc (unsigned int reloc_type)
     case EM_AVR_OLD:
     case EM_AVR:
       return reloc_type == 1;
+    case EM_AVR32_OLD:
+    case EM_AVR32:
+      return reloc_type == 1; /* R_AVR32_32 */
     case EM_ADAPTEVA_EPIPHANY:
       return reloc_type == 3;
     case EM_BLACKFIN:
@@ -10133,6 +10139,9 @@ is_16bit_abs_reloc (unsigned int reloc_type)
     case EM_AVR_OLD:
     case EM_AVR:
       return reloc_type == 4; /* R_AVR_16.  */
+    case EM_AVR32_OLD:
+    case EM_AVR32:
+      return reloc_type == 2; /* R_AVR32_16 */
     case EM_ADAPTEVA_EPIPHANY:
       return reloc_type == 5;
     case EM_CYGNUS_D10V:

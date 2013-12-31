@@ -2,17 +2,17 @@
 #name: dwarf2
 #source: dwarf2.s
 
-Dump of debug contents of section \.debug_line:
+Raw dump of debug contents of section \.debug_line:
 
-  Length:                      53
+  Offset:                      0x0
+  Length:                      56
   DWARF Version:               2
-  Prologue Length:             26
+  Prologue Length:             29
   Minimum Instruction Length:  1
   Initial value of 'is_stmt':  1
   Line Base:                   -5
   Line Range:                  14
-  Opcode Base:                 10
-  \(Pointer size:               4\)
+  Opcode Base:                 13
 
  Opcodes:
   Opcode 1 has 0 args
@@ -24,6 +24,9 @@ Dump of debug contents of section \.debug_line:
   Opcode 7 has 0 args
   Opcode 8 has 0 args
   Opcode 9 has 1 args
+  Opcode 10 has 0 args
+  Opcode 11 has 0 args
+  Opcode 12 has 1 args
 
  The Directory Table is empty\.
 
@@ -38,5 +41,7 @@ Dump of debug contents of section \.debug_line:
   Advance Line by 23 to 111
   Special opcode .*: advance Address by 4 to 0x4 and Line by 0 to 111
   Special opcode .*: advance Address by 10 to 0xe and Line by 1 to 112
-  Advance PC by 530 to 220
+  Advance PC by 530 to 0x220
   Extended opcode 1: End of Sequence
+
+

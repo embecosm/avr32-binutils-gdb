@@ -1,5 +1,12 @@
 2013-12-31  Jeremy Bennett  <jeremy.bennett@embecosm.com>
 
+	AVR32 patch 403-binutils-avr32-bug-11979
+
+	* testsuite/gas/avr32/dwarf2.d: Patches for AVR32.
+	* testsuite/gas/avr32/dwarf2.s: Patches for AVR32.
+
+2013-12-31  Jeremy Bennett  <jeremy.bennett@embecosm.com>
+
 	AVR32 patch 402-binutils-avr32-bug-7435
 
 	* config/tc-avr32.c: Patches for AVR32.

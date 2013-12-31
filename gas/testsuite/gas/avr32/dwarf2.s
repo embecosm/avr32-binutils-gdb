@@ -43,7 +43,7 @@ main:
 .Letext0:
 
 	.section .debug_info
-	.int	.Ledebug_info0 - .Ldebug_info0	// size
+	.int	.Ledebug_info0 - .Ldebug_info0 - 4 // size (length of the .debug_info, not including the length field itself)
 	.short	2				// version
 	.int	.Ldebug_abbrev0			// abbrev offset
 	.byte	4				// bytes per addr
