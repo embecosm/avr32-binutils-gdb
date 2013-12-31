@@ -215,6 +215,7 @@ ALL_EMULATION_SOURCES = \
 	eavr32elf_uc3c2256c.c \
 	eavr32elf_uc3c2512crevc.c \
 	eavr32elf_atuc3l0256.c \
+        eavr32elf_mxt768e.c \
 	eavr32elf_uc3l064.c \
 	eavr32elf_uc3l032.c \
 	eavr32elf_uc3l016.c \
@@ -1067,6 +1068,10 @@ eavr32elf_atuc3l0256.c: $(srcdir)/emulparams/avr32elf.sh \
   $(srcdir)/emultempl/elf32.em $(srcdir)/emultempl/avr32elf.em \
   $(srcdir)/scripttempl/avr32.sc ${GEN_DEPENDS}
 	${GENSCRIPTS} avr32elf_atuc3l0256 "$(tdir_avr32)" avr32elf
+eavr32elf_mxt768e.c: $(srcdir)/emulparams/avr32elf.sh \
+  $(srcdir)/emultempl/elf32.em $(srcdir)/emultempl/avr32elf.em \
+  $(srcdir)/scripttempl/avr32.sc ${GEN_DEPENDS}
+	${GENSCRIPTS} avr32elf_mxt768e "$(tdir_avr32)" avr32elf
 eavr32elf_uc3l064.c: $(srcdir)/emulparams/avr32elf.sh \
   $(srcdir)/emultempl/elf32.em $(srcdir)/emultempl/avr32elf.em \
   $(srcdir)/scripttempl/avr32.sc ${GEN_DEPENDS}

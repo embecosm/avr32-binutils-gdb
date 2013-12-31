@@ -1,5 +1,11 @@
 2013-12-31  Jeremy Bennett  <jeremy.bennett@embecosm.com>
 
+	AVR32 patch 500-binutils-avr32-mxt768e
+
+	* config/tc-avr32.c: Patches for AVR32.
+
+2013-12-31  Jeremy Bennett  <jeremy.bennett@embecosm.com>
+
 	AVR32 patch 404-binutils-avr32-avrtc176
 
 	* config/tc-avr32.c: Patches for AVR32.
