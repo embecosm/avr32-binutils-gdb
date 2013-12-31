@@ -56,14 +56,6 @@ static const struct reg_entry cr_table[] =
   };
 #define AVR32_NR_CPREGS (sizeof(cr_table)/sizeof(cr_table[0]))
 
-/* Floating-point Registers.  */
-static const struct reg_entry fr_table[] =
-  {
-    { "fr0",   0 }, { "fr1",   1 }, { "fr2",   2 }, { "fr3",   3 },
-    { "fr4",   4 }, { "fr5",   5 }, { "fr6",   6 }, { "fr7",   7 },
-    { "fr8",   8 }, { "fr9",   9 }, { "fr10", 10 }, { "fr11", 11 },
-    { "fr12", 12 }, { "fr13", 13 }, { "fr14", 14 }, { "fr15", 15 },
-  };
 #define AVR32_NR_FPREGS (sizeof(fr_table)/sizeof(fr_table[0]))
 
 /* PiCo Registers.  */
@@ -106,18 +98,6 @@ avr32_parse_cpreg(const char *str)
   return -1;
 }
 
-int avr32_parse_fpreg(const char *str)
-{
-  unsigned int i;
-
-  for (i = 0; i < AVR32_NR_FPREGS; i++)
-    {
-      if (strcasecmp(fr_table[i].name, str) == 0)
-	return fr_table[i].number;
-    }
-
-  return -1;
-}
 
 int avr32_parse_picoreg(const char *str)
 {

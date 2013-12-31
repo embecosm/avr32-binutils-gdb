@@ -140,6 +140,7 @@ enum avr32_arch {
   ARCH_TYPE_UCR1,
   ARCH_TYPE_UCR2,
   ARCH_TYPE_UCR3,
+  ARCH_TYPE_UCR3FP
 };
 
 struct arch_type_s
@@ -164,7 +165,8 @@ static struct arch_type_s arch_types[] =
     {"ucr1", AVR32_V1 | AVR32_DSP | AVR32_RMW},
     {"ucr2", AVR32_V1 | AVR32_V2 | AVR32_DSP | AVR32_RMW},
     {"ucr3", AVR32_V1 | AVR32_V2 | AVR32_V3 | AVR32_DSP | AVR32_RMW},
-    {"all-insn", AVR32_V1 | AVR32_V2 | AVR32_V3 | AVR32_SIMD | AVR32_DSP | AVR32_RMW | AVR32_FP | AVR32_PICO},
+    {"ucr3fp", AVR32_V1 | AVR32_V2 | AVR32_V3 | AVR32_DSP | AVR32_RMW | AVR32_V3FP},
+    {"all-insn", AVR32_V1 | AVR32_V2 | AVR32_V3 | AVR32_SIMD | AVR32_DSP | AVR32_RMW | AVR32_V3FP | AVR32_PICO},
     {NULL, 0}
 };
 
@@ -222,7 +224,7 @@ static struct part_type_s part_types[] =
 };
 
 /* Current architecture type.  */
-static struct arch_type_s default_arch = {"all-insn", AVR32_V1 | AVR32_V2 | AVR32_V3 | AVR32_SIMD | AVR32_DSP | AVR32_RMW | AVR32_FP | AVR32_PICO };
+static struct arch_type_s default_arch = {"all-insn", AVR32_V1 | AVR32_V2 | AVR32_V3 | AVR32_SIMD | AVR32_DSP | AVR32_RMW | AVR32_V3FP | AVR32_PICO };
 static struct arch_type_s *avr32_arch = &default_arch;
 
 /* Display nicely formatted list of known part- and architecture names.  */
@@ -881,7 +883,7 @@ match_coh(char *str)
 {
   return strcasecmp(str, "coh") == 0;
 }
-
+#if 0
 static int
 match_fpreg(char *str)
 {
@@ -899,6 +901,7 @@ match_fpreg(char *str)
 
   return 1;
 }
+#endif
 
 static int
 match_picoreg(char *str)
@@ -1894,7 +1897,7 @@ parse_jospinc(const struct avr32_operand *op ATTRIBUTE_UNUSED,
 }
 
 #define parse_coh		parse_nothing
-
+#if 0
 static void
 parse_fpreg(const struct avr32_operand *op,
 	    char *str, int opindex ATTRIBUTE_UNUSED)
@@ -1911,6 +1914,7 @@ parse_fpreg(const struct avr32_operand *op,
   current_insn.field_value[slot].value = regid;
   current_insn.field_value[slot].align_order = op->align_order;
 }
+#endif
 
 static void
 parse_picoreg(const struct avr32_operand *op,
@@ -2061,8 +2065,6 @@ struct avr32_operand avr32_operand_table[] = {
   OP(MCALL, 1, 0, 2, mcall),
   OP(JOSPINC, 0, 0, 0, jospinc),
   OP(COH, 0, 0, 0, coh),
-  OP(FPREG_S, 0, 0, 0, fpreg),
-  OP(FPREG_D, 0, 0, 1, fpreg),
   OP(PICO_REG_W, 0, 0, 0, picoreg),
   OP(PICO_REG_D, 0, 0, 1, picoreg),
   OP(PICO_REGLIST_W, 0, 0, 0, pico_reglist_w),
@@ -2330,6 +2332,9 @@ static const struct avr32_relax_type avr32_relax_table[] =
     EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY,
     /* 646: movh */
     E(0, 65535, 0), EMPTY, EMPTY,
+  /* 649: fmac.s */
+  EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY,
+  EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY,
   };
 
 #undef E

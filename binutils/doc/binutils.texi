@@ -2037,6 +2037,10 @@ using the switch @option{--disassembler-options=force-thumb}.  This can be
 useful when attempting to disassemble thumb code produced by other
 compilers.
 
+For the AVR32 architectures that support Floating point unit (FPU), 
+specifying @option{-M decode-fpu} will enable disassembler to print the
+floating point instructions instead of 'cop' instructions. 
+
 For the x86, some of the options duplicate functions of the @option{-m}
 switch, but allow finer grained control.  Multiple selections from the
 following may be specified as a comma separated string.

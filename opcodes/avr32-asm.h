@@ -27,8 +27,6 @@ avr32_parse_intreg(const char *str);
 extern int
 avr32_parse_cpreg(const char *str);
 extern int
-avr32_parse_fpreg(const char *str);
-extern int
 avr32_parse_picoreg(const char *str);
 extern unsigned long
 avr32_parse_reglist(char *str, char **endptr);

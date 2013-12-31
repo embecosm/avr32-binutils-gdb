@@ -1,5 +1,11 @@
 2013-12-31  Jeremy Bennett  <jeremy.bennett@embecosm.com>
 
+	AVR32 patch 401-binutils-avr32-fpu
+
+	* doc/binutils.texi: Patches for AVR32.
+
+2013-12-31  Jeremy Bennett  <jeremy.bennett@embecosm.com>
+
 	AVR32 patch 301-binutils-avr32-binutils
 
 	* readelf.c: Patches for AVR32.

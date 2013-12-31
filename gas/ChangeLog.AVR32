@@ -1,5 +1,11 @@
 2013-12-31  Jeremy Bennett  <jeremy.bennett@embecosm.com>
 
+	AVR32 patch 401-binutils-avr32-fpu
+
+	* config/tc-avr32.c: Patches for AVR32.
+
+2013-12-31  Jeremy Bennett  <jeremy.bennett@embecosm.com>
+
 	AVR32 patch 400-binutils-avr32-fixes
 
 	* as.h: Patches for AVR32.

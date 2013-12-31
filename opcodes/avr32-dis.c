@@ -39,6 +39,7 @@ struct reg_entry
 #define strneq(a,b,n)	(strncmp ((a), (b), (n)) == 0)
 #endif
 
+static char avr32_opt_decode_fpu = 0;
 
 static const struct reg_entry reg_table[] =
   {
@@ -774,6 +775,8 @@ print_opcode(bfd_vma insn_word, const struct avr32_opcode *opc,
     }
 }
 
+#define is_fpu_insn(iw) ((iw&0xf9f0e000)==0xe1a00000) 
+
 static const struct avr32_opcode *
 find_opcode(bfd_vma insn_word)
 {
@@ -784,8 +787,21 @@ find_opcode(bfd_vma insn_word)
       const struct avr32_opcode *opc = &avr32_opc_table[i];
 
       if ((insn_word & opc->mask) == opc->value)
+      {
+        if (avr32_opt_decode_fpu)
+        {
+          if (is_fpu_insn(insn_word))
+          {
+            if (opc->id != AVR32_OPC_COP)
+	       return opc;
+          }
+          else
+            return opc;
+        }
+        else
 	return opc;
     }
+   }
 
   return NULL;
 }
@@ -822,6 +838,13 @@ parse_avr32_disassembler_option (option)
   if (option == NULL)
     return;
 
+  if (!strcmp(option,"decode-fpu"))
+  {
+    avr32_opt_decode_fpu = 1;
+    return;
+  }
+
+  printf("\n%s--",option);
   /* XXX - should break 'option' at following delimiter.  */
   fprintf (stderr, _("Unrecognised disassembler option: %s\n"), option);
 
@@ -887,5 +910,7 @@ print_insn_avr32(bfd_vma pc, struct disassemble_info *info)
 void
 print_avr32_disassembler_options (FILE *stream ATTRIBUTE_UNUSED)
 {
-
+  fprintf(stream, "\n AVR32 Specific Disassembler Options:\n");
+  fprintf(stream, "  -M decode-fpu                  Print FPU instructions instead of 'cop' \n");
 }
+
