@@ -3948,6 +3948,129 @@ ENUMDOC
   instructions
 
 ENUM
+  BFD_RELOC_AVR32_DIFF32
+ENUMX
+  BFD_RELOC_AVR32_DIFF16
+ENUMX
+  BFD_RELOC_AVR32_DIFF8
+ENUMDOC
+  Difference between two labels: L2 - L1. The value of L1 is encoded
+  as sym + addend, while the initial difference after assembly is
+  inserted into the object file by the assembler.
+ENUM
+  BFD_RELOC_AVR32_GOT32
+ENUMX
+  BFD_RELOC_AVR32_GOT16
+ENUMX
+  BFD_RELOC_AVR32_GOT8
+ENUMDOC
+  Reference to a symbol through the Global Offset Table. The linker
+  will allocate an entry for symbol in the GOT and insert the offset
+  of this entry as the relocation value.
+ENUM
+  BFD_RELOC_AVR32_21S
+ENUMX
+  BFD_RELOC_AVR32_16U
+ENUMX
+  BFD_RELOC_AVR32_16S
+ENUMX
+  BFD_RELOC_AVR32_SUB5
+ENUMX
+  BFD_RELOC_AVR32_8S_EXT
+ENUMX
+  BFD_RELOC_AVR32_8S
+ENUMDOC
+  Normal (non-pc-relative) code relocations. Alignment and signedness
+  is indicated by the suffixes. S means signed, U means unsigned. W
+  means word-aligned, H means halfword-aligned, neither means
+  byte-aligned (no alignment.) SUB5 is the same relocation as 16S.
+ENUM
+  BFD_RELOC_AVR32_22H_PCREL
+ENUMX
+  BFD_RELOC_AVR32_18W_PCREL
+ENUMX
+  BFD_RELOC_AVR32_16B_PCREL
+ENUMX
+  BFD_RELOC_AVR32_16N_PCREL
+ENUMX
+  BFD_RELOC_AVR32_14UW_PCREL
+ENUMX
+  BFD_RELOC_AVR32_11H_PCREL
+ENUMX
+  BFD_RELOC_AVR32_10UW_PCREL
+ENUMX
+  BFD_RELOC_AVR32_9H_PCREL
+ENUMX
+  BFD_RELOC_AVR32_9UW_PCREL
+ENUMDOC
+  PC-relative relocations are signed if neither 'U' nor 'S' is
+  specified. However, we explicitly tack on a 'B' to indicate no
+  alignment, to avoid confusion with data relocs. All of these resolve
+  to sym + addend - offset, except the one with 'N' (negated) suffix.
+  This particular one resolves to offset - sym - addend.
+ENUM
+  BFD_RELOC_AVR32_GOTPC
+ENUMDOC
+  Subtract the link-time address of the GOT from (symbol + addend)
+  and insert the result.
+ENUM
+  BFD_RELOC_AVR32_GOTCALL
+ENUMX
+  BFD_RELOC_AVR32_LDA_GOT
+ENUMX
+  BFD_RELOC_AVR32_GOT21S
+ENUMX
+  BFD_RELOC_AVR32_GOT18SW
+ENUMX
+  BFD_RELOC_AVR32_GOT16S
+ENUMDOC
+  Reference to a symbol through the GOT. The linker will allocate an
+  entry for symbol in the GOT and insert the offset of this entry as
+  the relocation value. addend must be zero. As usual, 'S' means
+  signed, 'W' means word-aligned, etc.
+ENUM
+  BFD_RELOC_AVR32_32_CPENT
+ENUMDOC
+  32-bit constant pool entry. I don't think 8- and 16-bit entries make
+  a whole lot of sense.
+ENUM
+  BFD_RELOC_AVR32_CPCALL
+ENUMX
+  BFD_RELOC_AVR32_16_CP
+ENUMX
+  BFD_RELOC_AVR32_9W_CP
+ENUMDOC
+  Constant pool references. Some of these relocations are signed,
+  others are unsigned. It doesn't really matter, since the constant
+  pool always comes after the code that references it.
+ENUM
+  BFD_RELOC_AVR32_ALIGN
+ENUMDOC
+  sym must be the absolute symbol. The addend specifies the alignment
+  order, e.g. if addend is 2, the linker must add padding so that the
+  next address is aligned to a 4-byte boundary.
+ENUM
+  BFD_RELOC_AVR32_14UW
+ENUMX
+  BFD_RELOC_AVR32_10UW
+ENUMX
+  BFD_RELOC_AVR32_10SW
+ENUMX
+  BFD_RELOC_AVR32_STHH_W
+ENUMX
+  BFD_RELOC_AVR32_7UW
+ENUMX
+  BFD_RELOC_AVR32_6S
+ENUMX
+  BFD_RELOC_AVR32_6UW
+ENUMX
+  BFD_RELOC_AVR32_4UH
+ENUMX
+  BFD_RELOC_AVR32_3U
+ENUMDOC
+  Code relocations that will never make it to the output file.
+
+ENUM
   BFD_RELOC_390_12
 ENUMDOC
    Direct 12 bit.

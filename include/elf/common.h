@@ -217,6 +217,9 @@
 /* MSP430 magic number.  Written in the absense of everything.  */
 #define EM_MSP430_OLD		0x1059
 
+/* AVR32 magic number, picked by IAR Systems. */
+#define EM_AVR32        0x18ad
+
 /* Morpho MT.   Written in the absense of an ABI.  */
 #define EM_MT                   0x2530
 

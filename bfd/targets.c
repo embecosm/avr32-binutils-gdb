@@ -564,6 +564,7 @@ extern const bfd_target bfd_efi_app_ia32_vec;
 extern const bfd_target bfd_efi_app_x86_64_vec;
 extern const bfd_target bfd_efi_app_ia64_vec;
 extern const bfd_target bfd_elf32_avr_vec;
+extern const bfd_target bfd_elf32_avr32_vec;
 extern const bfd_target bfd_elf32_bfin_vec;
 extern const bfd_target bfd_elf32_bfinfdpic_vec;
 extern const bfd_target bfd_elf32_big_generic_vec;
@@ -884,6 +885,7 @@ static const bfd_target * const _bfd_target_vector[] =
 	&bfd_efi_app_ia64_vec,
 #endif
 	&bfd_elf32_avr_vec,
+	&bfd_elf32_avr32_vec,
 	&bfd_elf32_bfin_vec,
 	&bfd_elf32_bfinfdpic_vec,
 

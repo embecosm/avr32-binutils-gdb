@@ -335,6 +335,10 @@ case "${targ}" in
     targ_underscore=yes
     ;;
 
+  avr32-*-*)
+    targ_defvec=bfd_elf32_avr32_vec
+    ;;
+
   c30-*-*aout* | tic30-*-*aout*)
     targ_defvec=tic30_aout_vec
     ;;

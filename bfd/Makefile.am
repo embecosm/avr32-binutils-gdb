@@ -63,6 +63,7 @@ ALL_MACHINES = \
 	cpu-arc.lo \
 	cpu-arm.lo \
 	cpu-avr.lo \
+	cpu-avr32.lo \
 	cpu-bfin.lo \
 	cpu-cr16.lo \
 	cpu-cr16c.lo \
@@ -243,6 +244,7 @@ BFD32_BACKENDS = \
 	elf32-arc.lo \
 	elf32-arm.lo \
 	elf32-avr.lo \
+	elf32-avr32.lo \
 	elf32-bfin.lo \
 	elf32-cr16.lo \
 	elf32-cr16c.lo \
@@ -1319,6 +1321,10 @@ elf32-avr.lo: elf32-avr.c $(INCDIR)/filenames.h $(INCDIR)/hashtab.h \
   elf-bfd.h $(INCDIR)/elf/common.h $(INCDIR)/elf/internal.h \
   $(INCDIR)/elf/external.h $(INCDIR)/bfdlink.h $(INCDIR)/elf/avr.h \
   $(INCDIR)/elf/reloc-macros.h elf32-avr.h elf32-target.h
+elf32-avr32.lo: elf32-avr32.c $(INCDIR)/filenames.h elf-bfd.h \
+  $(INCDIR)/elf/common.h $(INCDIR)/elf/internal.h $(INCDIR)/elf/external.h \
+  $(INCDIR)/bfdlink.h $(INCDIR)/elf/avr32.h $(INCDIR)/elf/reloc-macros.h \
+  elf32-target.h
 elf32-bfin.lo: elf32-bfin.c $(INCDIR)/filenames.h $(INCDIR)/hashtab.h \
   elf-bfd.h $(INCDIR)/elf/common.h $(INCDIR)/elf/internal.h \
   $(INCDIR)/elf/external.h $(INCDIR)/bfdlink.h $(INCDIR)/elf/bfin.h \

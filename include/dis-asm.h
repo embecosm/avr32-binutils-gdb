@@ -211,6 +211,7 @@ typedef int (*disassembler_ftype) (bfd_vma, disassemble_info *);
 
 extern int print_insn_alpha		(bfd_vma, disassemble_info *);
 extern int print_insn_avr		(bfd_vma, disassemble_info *);
+extern int print_insn_avr32		(bfd_vma, disassemble_info *);
 extern int print_insn_bfin		(bfd_vma, disassemble_info *);
 extern int print_insn_big_arm		(bfd_vma, disassemble_info *);
 extern int print_insn_big_mips		(bfd_vma, disassemble_info *);
@@ -290,10 +291,12 @@ extern void print_i386_disassembler_options (FILE *);
 extern void print_mips_disassembler_options (FILE *);
 extern void print_ppc_disassembler_options (FILE *);
 extern void print_arm_disassembler_options (FILE *);
+extern void print_avr32_disassembler_options (FILE *);
 extern void parse_arm_disassembler_option (char *);
-extern int  get_arm_regname_num_options (void);
-extern int  set_arm_regname_option (int);
-extern int  get_arm_regnames (int, const char **, const char **, const char *const **);
+extern void parse_avr32_disassembler_option (char *);
+extern int get_arm_regname_num_options (void);
+extern int set_arm_regname_option (int);
+extern int get_arm_regnames (int, const char **, const char **, const char *const **);
 extern bfd_boolean arm_symbol_is_valid (asymbol *, struct disassemble_info *);
 
 /* Fetch the disassembler for a given BFD, if that support is available.  */

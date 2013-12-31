@@ -1400,6 +1400,10 @@ struct elf_obj_tdata
      find_nearest_line.  */
   struct mips_elf_find_line *find_line_info;
 
+  /* Used by AVR32 ELF relaxation code.  Contains an array of pointers
+     for each local symbol to the fragment where it is defined.  */
+  struct fragment **local_sym_frag;
+
   /* A place to stash dwarf1 info for this bfd.  */
   struct dwarf1_debug *dwarf1_find_line_info;
 
