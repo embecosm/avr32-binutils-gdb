@@ -1,0 +1,15 @@
+2013-12-31  Jeremy Bennett  <jeremy.bennett@embecosm.com>
+
+	AVR32 patch 304-binutils-avr32-ld
+
+	* configure.tgt: Patches for AVR32.
+	* emulparams/avr32elf.sh: Patches for AVR32.
+	* emulparams/avr32linux.sh: Patches for AVR32.
+	* emultempl/avr32elf.em: Patches for AVR32.
+	* Makefile.am: Patches for AVR32.
+	* scripttempl/avr32.sc: Patches for AVR32.
+	* testsuite/ld-avr32/avr32.exp: Patches for AVR32.
+	* testsuite/ld-avr32/pcrel.d: Patches for AVR32.
+	* testsuite/ld-avr32/pcrel.ld: Patches for AVR32.
+	* testsuite/ld-avr32/symbols.s: Patches for AVR32.
+

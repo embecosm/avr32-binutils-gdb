@@ -172,6 +172,54 @@ ALL_EMULATION_SOURCES = \
 	eavrxmega5.o \
 	eavrxmega6.o \
 	eavrxmega7.o \
+	eavr32elf_ap7000.c \
+	eavr32elf_ap7001.c \
+	eavr32elf_ap7002.c \
+	eavr32elf_ap7200.c \
+	eavr32elf_uc3a0128.c \
+	eavr32elf_uc3a0256.c \
+	eavr32elf_uc3a0512.c \
+	eavr32elf_uc3a0512es.c \
+	eavr32elf_uc3a1128.c \
+	eavr32elf_uc3a1256.c \
+	eavr32elf_uc3a1512es.c \
+	eavr32elf_uc3a1512.c \
+	eavr32elf_uc3a364.c \
+	eavr32elf_uc3a364s.c \
+	eavr32elf_uc3a3128.c \
+	eavr32elf_uc3a3128s.c \
+	eavr32elf_uc3a3256.c \
+	eavr32elf_uc3a3256s.c \
+	eavr32elf_uc3b064.c \
+	eavr32elf_uc3b0128.c \
+	eavr32elf_uc3b0256es.c \
+	eavr32elf_uc3b0256.c \
+	eavr32elf_uc3b0512.c \
+	eavr32elf_uc3b0512revc.c \
+	eavr32elf_uc3b164.c \
+	eavr32elf_uc3b1128.c \
+	eavr32elf_uc3b1256es.c \
+	eavr32elf_uc3b1256.c \
+	eavr32elf_uc3b1512.c \
+	eavr32elf_uc3b1512revc.c \
+	eavr32elf_uc3c064c.c \
+	eavr32elf_uc3c0128c.c \
+	eavr32elf_uc3c0256c.c \
+	eavr32elf_uc3c0512crevc.c \
+	eavr32elf_uc3c164c.c \
+	eavr32elf_uc3c1128c.c \
+	eavr32elf_uc3c1256c.c \
+	eavr32elf_uc3c1512crevc.c \
+	eavr32elf_uc3c264c.c \
+	eavr32elf_uc3c2128c.c \
+	eavr32elf_uc3c2256c.c \
+	eavr32elf_uc3c2512crevc.c \
+	eavr32elf_atuc3l0256.c \
+	eavr32elf_uc3l064.c \
+	eavr32elf_uc3l032.c \
+	eavr32elf_uc3l016.c \
+	eavr32elf_uc3l064revb.c \
+	eavr32linux.c \
 	ecoff_i860.c \
 	ecoff_sparc.c \
 	ecrisaout.c \
@@ -847,6 +895,198 @@ eavrxmega7.c: $(srcdir)/emulparams/avrxmega7.sh \
   $(srcdir)/emultempl/avrelf.em $(ELF_DEPS) $(srcdir)/scripttempl/avr.sc \
   ${GEN_DEPENDS}
 	${GENSCRIPTS} avrxmega7 "$(tdir_avr2)"
+eavr32elf_ap7000.c: $(srcdir)/emulparams/avr32elf.sh \
+  $(srcdir)/emultempl/elf32.em $(srcdir)/emultempl/avr32elf.em \
+  $(srcdir)/scripttempl/avr32.sc ${GEN_DEPENDS}
+	${GENSCRIPTS} avr32elf_ap7000 "$(tdir_avr32)" avr32elf
+eavr32elf_ap7001.c: $(srcdir)/emulparams/avr32elf.sh \
+  $(srcdir)/emultempl/elf32.em $(srcdir)/emultempl/avr32elf.em \
+  $(srcdir)/scripttempl/avr32.sc ${GEN_DEPENDS}
+	${GENSCRIPTS} avr32elf_ap7001 "$(tdir_avr32)" avr32elf
+eavr32elf_ap7002.c: $(srcdir)/emulparams/avr32elf.sh \
+  $(srcdir)/emultempl/elf32.em $(srcdir)/emultempl/avr32elf.em \
+  $(srcdir)/scripttempl/avr32.sc ${GEN_DEPENDS}
+	${GENSCRIPTS} avr32elf_ap7002 "$(tdir_avr32)" avr32elf
+eavr32elf_ap7200.c: $(srcdir)/emulparams/avr32elf.sh \
+  $(srcdir)/emultempl/elf32.em $(srcdir)/emultempl/avr32elf.em \
+  $(srcdir)/scripttempl/avr32.sc ${GEN_DEPENDS}
+	${GENSCRIPTS} avr32elf_ap7200 "$(tdir_avr32)" avr32elf
+eavr32elf_uc3a0128.c: $(srcdir)/emulparams/avr32elf.sh \
+  $(srcdir)/emultempl/elf32.em $(srcdir)/emultempl/avr32elf.em \
+  $(srcdir)/scripttempl/avr32.sc ${GEN_DEPENDS}
+	${GENSCRIPTS} avr32elf_uc3a0128 "$(tdir_avr32)" avr32elf
+eavr32elf_uc3a0256.c: $(srcdir)/emulparams/avr32elf.sh \
+  $(srcdir)/emultempl/elf32.em $(srcdir)/emultempl/avr32elf.em \
+  $(srcdir)/scripttempl/avr32.sc ${GEN_DEPENDS}
+	${GENSCRIPTS} avr32elf_uc3a0256 "$(tdir_avr32)" avr32elf
+eavr32elf_uc3a0512.c: $(srcdir)/emulparams/avr32elf.sh \
+  $(srcdir)/emultempl/elf32.em $(srcdir)/emultempl/avr32elf.em \
+  $(srcdir)/scripttempl/avr32.sc ${GEN_DEPENDS}
+	${GENSCRIPTS} avr32elf_uc3a0512 "$(tdir_avr32)" avr32elf
+eavr32elf_uc3a0512es.c: $(srcdir)/emulparams/avr32elf.sh \
+  $(srcdir)/emultempl/elf32.em $(srcdir)/emultempl/avr32elf.em \
+  $(srcdir)/scripttempl/avr32.sc ${GEN_DEPENDS}
+	${GENSCRIPTS} avr32elf_uc3a0512es "$(tdir_avr32)" avr32elf
+eavr32elf_uc3a1128.c: $(srcdir)/emulparams/avr32elf.sh \
+  $(srcdir)/emultempl/elf32.em $(srcdir)/emultempl/avr32elf.em \
+  $(srcdir)/scripttempl/avr32.sc ${GEN_DEPENDS}
+	${GENSCRIPTS} avr32elf_uc3a1128 "$(tdir_avr32)" avr32elf
+eavr32elf_uc3a1256.c: $(srcdir)/emulparams/avr32elf.sh \
+  $(srcdir)/emultempl/elf32.em $(srcdir)/emultempl/avr32elf.em \
+  $(srcdir)/scripttempl/avr32.sc ${GEN_DEPENDS}
+	${GENSCRIPTS} avr32elf_uc3a1256 "$(tdir_avr32)" avr32elf
+eavr32elf_uc3a1512.c: $(srcdir)/emulparams/avr32elf.sh \
+  $(srcdir)/emultempl/elf32.em $(srcdir)/emultempl/avr32elf.em \
+  $(srcdir)/scripttempl/avr32.sc ${GEN_DEPENDS}
+	${GENSCRIPTS} avr32elf_uc3a1512 "$(tdir_avr32)" avr32elf
+eavr32elf_uc3a1512es.c: $(srcdir)/emulparams/avr32elf.sh \
+  $(srcdir)/emultempl/elf32.em $(srcdir)/emultempl/avr32elf.em \
+  $(srcdir)/scripttempl/avr32.sc ${GEN_DEPENDS}
+	${GENSCRIPTS} avr32elf_uc3a1512es "$(tdir_avr32)" avr32elf
+eavr32elf_uc3a364.c: $(srcdir)/emulparams/avr32elf.sh \
+  $(srcdir)/emultempl/elf32.em $(srcdir)/emultempl/avr32elf.em \
+  $(srcdir)/scripttempl/avr32.sc ${GEN_DEPENDS}
+	${GENSCRIPTS} avr32elf_uc3a364 "$(tdir_avr32)" avr32elf
+eavr32elf_uc3a364s.c: $(srcdir)/emulparams/avr32elf.sh \
+  $(srcdir)/emultempl/elf32.em $(srcdir)/emultempl/avr32elf.em \
+  $(srcdir)/scripttempl/avr32.sc ${GEN_DEPENDS}
+	${GENSCRIPTS} avr32elf_uc3a364s "$(tdir_avr32)" avr32elf
+eavr32elf_uc3a3128.c: $(srcdir)/emulparams/avr32elf.sh \
+  $(srcdir)/emultempl/elf32.em $(srcdir)/emultempl/avr32elf.em \
+  $(srcdir)/scripttempl/avr32.sc ${GEN_DEPENDS}
+	${GENSCRIPTS} avr32elf_uc3a3128 "$(tdir_avr32)" avr32elf
+eavr32elf_uc3a3128s.c: $(srcdir)/emulparams/avr32elf.sh \
+  $(srcdir)/emultempl/elf32.em $(srcdir)/emultempl/avr32elf.em \
+  $(srcdir)/scripttempl/avr32.sc ${GEN_DEPENDS}
+	${GENSCRIPTS} avr32elf_uc3a3128s "$(tdir_avr32)" avr32elf
+eavr32elf_uc3a3256.c: $(srcdir)/emulparams/avr32elf.sh \
+  $(srcdir)/emultempl/elf32.em $(srcdir)/emultempl/avr32elf.em \
+  $(srcdir)/scripttempl/avr32.sc ${GEN_DEPENDS}
+	${GENSCRIPTS} avr32elf_uc3a3256 "$(tdir_avr32)" avr32elf
+eavr32elf_uc3a3256s.c: $(srcdir)/emulparams/avr32elf.sh \
+  $(srcdir)/emultempl/elf32.em $(srcdir)/emultempl/avr32elf.em \
+  $(srcdir)/scripttempl/avr32.sc ${GEN_DEPENDS}
+	${GENSCRIPTS} avr32elf_uc3a3256s "$(tdir_avr32)" avr32elf
+eavr32elf_uc3b064.c: $(srcdir)/emulparams/avr32elf.sh \
+  $(srcdir)/emultempl/elf32.em $(srcdir)/emultempl/avr32elf.em \
+  $(srcdir)/scripttempl/avr32.sc ${GEN_DEPENDS}
+	${GENSCRIPTS} avr32elf_uc3b064 "$(tdir_avr32)" avr32elf
+eavr32elf_uc3b0128.c: $(srcdir)/emulparams/avr32elf.sh \
+  $(srcdir)/emultempl/elf32.em $(srcdir)/emultempl/avr32elf.em \
+  $(srcdir)/scripttempl/avr32.sc ${GEN_DEPENDS}
+	${GENSCRIPTS} avr32elf_uc3b0128 "$(tdir_avr32)" avr32elf
+eavr32elf_uc3b0256.c: $(srcdir)/emulparams/avr32elf.sh \
+  $(srcdir)/emultempl/elf32.em $(srcdir)/emultempl/avr32elf.em \
+  $(srcdir)/scripttempl/avr32.sc ${GEN_DEPENDS}
+	${GENSCRIPTS} avr32elf_uc3b0256 "$(tdir_avr32)" avr32elf
+eavr32elf_uc3b0256es.c: $(srcdir)/emulparams/avr32elf.sh \
+  $(srcdir)/emultempl/elf32.em $(srcdir)/emultempl/avr32elf.em \
+  $(srcdir)/scripttempl/avr32.sc ${GEN_DEPENDS}
+	${GENSCRIPTS} avr32elf_uc3b0256es "$(tdir_avr32)" avr32elf
+eavr32elf_uc3b0512.c: $(srcdir)/emulparams/avr32elf.sh \
+  $(srcdir)/emultempl/elf32.em $(srcdir)/emultempl/avr32elf.em \
+  $(srcdir)/scripttempl/avr32.sc ${GEN_DEPENDS}
+	${GENSCRIPTS} avr32elf_uc3b0512 "$(tdir_avr32)" avr32elf
+eavr32elf_uc3b0512revc.c: $(srcdir)/emulparams/avr32elf.sh \
+  $(srcdir)/emultempl/elf32.em $(srcdir)/emultempl/avr32elf.em \
+  $(srcdir)/scripttempl/avr32.sc ${GEN_DEPENDS}
+	${GENSCRIPTS} avr32elf_uc3b0512revc "$(tdir_avr32)" avr32elf
+eavr32elf_uc3b164.c: $(srcdir)/emulparams/avr32elf.sh \
+  $(srcdir)/emultempl/elf32.em $(srcdir)/emultempl/avr32elf.em \
+  $(srcdir)/scripttempl/avr32.sc ${GEN_DEPENDS}
+	${GENSCRIPTS} avr32elf_uc3b164 "$(tdir_avr32)" avr32elf
+eavr32elf_uc3b1128.c: $(srcdir)/emulparams/avr32elf.sh \
+  $(srcdir)/emultempl/elf32.em $(srcdir)/emultempl/avr32elf.em \
+  $(srcdir)/scripttempl/avr32.sc ${GEN_DEPENDS}
+	${GENSCRIPTS} avr32elf_uc3b1128 "$(tdir_avr32)" avr32elf
+eavr32elf_uc3b1256.c: $(srcdir)/emulparams/avr32elf.sh \
+  $(srcdir)/emultempl/elf32.em $(srcdir)/emultempl/avr32elf.em \
+  $(srcdir)/scripttempl/avr32.sc ${GEN_DEPENDS}
+	${GENSCRIPTS} avr32elf_uc3b1256 "$(tdir_avr32)" avr32elf
+eavr32elf_uc3b1256es.c: $(srcdir)/emulparams/avr32elf.sh \
+  $(srcdir)/emultempl/elf32.em $(srcdir)/emultempl/avr32elf.em \
+  $(srcdir)/scripttempl/avr32.sc ${GEN_DEPENDS}
+	${GENSCRIPTS} avr32elf_uc3b1256es "$(tdir_avr32)" avr32elf
+eavr32elf_uc3b1512.c: $(srcdir)/emulparams/avr32elf.sh \
+  $(srcdir)/emultempl/elf32.em $(srcdir)/emultempl/avr32elf.em \
+  $(srcdir)/scripttempl/avr32.sc ${GEN_DEPENDS}
+	${GENSCRIPTS} avr32elf_uc3b1512 "$(tdir_avr32)" avr32elf
+eavr32elf_uc3b1512revc.c: $(srcdir)/emulparams/avr32elf.sh \
+  $(srcdir)/emultempl/elf32.em $(srcdir)/emultempl/avr32elf.em \
+  $(srcdir)/scripttempl/avr32.sc ${GEN_DEPENDS}
+	${GENSCRIPTS} avr32elf_uc3b1512revc "$(tdir_avr32)" avr32elf
+eavr32elf_uc3c064c.c: $(srcdir)/emulparams/avr32elf.sh \
+  $(srcdir)/emultempl/elf32.em $(srcdir)/emultempl/avr32elf.em \
+  $(srcdir)/scripttempl/avr32.sc ${GEN_DEPENDS}
+	${GENSCRIPTS} avr32elf_uc3c064c "$(tdir_avr32)" avr32elf
+eavr32elf_uc3c0128c.c: $(srcdir)/emulparams/avr32elf.sh \
+  $(srcdir)/emultempl/elf32.em $(srcdir)/emultempl/avr32elf.em \
+  $(srcdir)/scripttempl/avr32.sc ${GEN_DEPENDS}
+	${GENSCRIPTS} avr32elf_uc3c0128c "$(tdir_avr32)" avr32elf
+eavr32elf_uc3c0256c.c: $(srcdir)/emulparams/avr32elf.sh \
+  $(srcdir)/emultempl/elf32.em $(srcdir)/emultempl/avr32elf.em \
+  $(srcdir)/scripttempl/avr32.sc ${GEN_DEPENDS}
+	${GENSCRIPTS} avr32elf_uc3c0256c "$(tdir_avr32)" avr32elf
+eavr32elf_uc3c0512crevc.c: $(srcdir)/emulparams/avr32elf.sh \
+  $(srcdir)/emultempl/elf32.em $(srcdir)/emultempl/avr32elf.em \
+  $(srcdir)/scripttempl/avr32.sc ${GEN_DEPENDS}
+	${GENSCRIPTS} avr32elf_uc3c0512crevc "$(tdir_avr32)" avr32elf
+eavr32elf_uc3c164c.c: $(srcdir)/emulparams/avr32elf.sh \
+  $(srcdir)/emultempl/elf32.em $(srcdir)/emultempl/avr32elf.em \
+  $(srcdir)/scripttempl/avr32.sc ${GEN_DEPENDS}
+	${GENSCRIPTS} avr32elf_uc3c164c "$(tdir_avr32)" avr32elf
+eavr32elf_uc3c1128c.c: $(srcdir)/emulparams/avr32elf.sh \
+  $(srcdir)/emultempl/elf32.em $(srcdir)/emultempl/avr32elf.em \
+  $(srcdir)/scripttempl/avr32.sc ${GEN_DEPENDS}
+	${GENSCRIPTS} avr32elf_uc3c1128c "$(tdir_avr32)" avr32elf
+eavr32elf_uc3c1256c.c: $(srcdir)/emulparams/avr32elf.sh \
+  $(srcdir)/emultempl/elf32.em $(srcdir)/emultempl/avr32elf.em \
+  $(srcdir)/scripttempl/avr32.sc ${GEN_DEPENDS}
+	${GENSCRIPTS} avr32elf_uc3c1256c "$(tdir_avr32)" avr32elf
+eavr32elf_uc3c1512crevc.c: $(srcdir)/emulparams/avr32elf.sh \
+  $(srcdir)/emultempl/elf32.em $(srcdir)/emultempl/avr32elf.em \
+  $(srcdir)/scripttempl/avr32.sc ${GEN_DEPENDS}
+	${GENSCRIPTS} avr32elf_uc3c1512crevc "$(tdir_avr32)" avr32elf
+eavr32elf_uc3c264c.c: $(srcdir)/emulparams/avr32elf.sh \
+  $(srcdir)/emultempl/elf32.em $(srcdir)/emultempl/avr32elf.em \
+  $(srcdir)/scripttempl/avr32.sc ${GEN_DEPENDS}
+	${GENSCRIPTS} avr32elf_uc3c264c "$(tdir_avr32)" avr32elf
+eavr32elf_uc3c2128c.c: $(srcdir)/emulparams/avr32elf.sh \
+  $(srcdir)/emultempl/elf32.em $(srcdir)/emultempl/avr32elf.em \
+  $(srcdir)/scripttempl/avr32.sc ${GEN_DEPENDS}
+	${GENSCRIPTS} avr32elf_uc3c2128c "$(tdir_avr32)" avr32elf
+eavr32elf_uc3c2256c.c: $(srcdir)/emulparams/avr32elf.sh \
+  $(srcdir)/emultempl/elf32.em $(srcdir)/emultempl/avr32elf.em \
+  $(srcdir)/scripttempl/avr32.sc ${GEN_DEPENDS}
+	${GENSCRIPTS} avr32elf_uc3c2256c "$(tdir_avr32)" avr32elf
+eavr32elf_uc3c2512crevc.c: $(srcdir)/emulparams/avr32elf.sh \
+  $(srcdir)/emultempl/elf32.em $(srcdir)/emultempl/avr32elf.em \
+  $(srcdir)/scripttempl/avr32.sc ${GEN_DEPENDS}
+	${GENSCRIPTS} avr32elf_uc3c2512crevc "$(tdir_avr32)" avr32elf
+eavr32elf_atuc3l0256.c: $(srcdir)/emulparams/avr32elf.sh \
+  $(srcdir)/emultempl/elf32.em $(srcdir)/emultempl/avr32elf.em \
+  $(srcdir)/scripttempl/avr32.sc ${GEN_DEPENDS}
+	${GENSCRIPTS} avr32elf_atuc3l0256 "$(tdir_avr32)" avr32elf
+eavr32elf_uc3l064.c: $(srcdir)/emulparams/avr32elf.sh \
+  $(srcdir)/emultempl/elf32.em $(srcdir)/emultempl/avr32elf.em \
+  $(srcdir)/scripttempl/avr32.sc ${GEN_DEPENDS}
+	${GENSCRIPTS} avr32elf_uc3l064 "$(tdir_avr32)" avr32elf
+eavr32elf_uc3l032.c: $(srcdir)/emulparams/avr32elf.sh \
+  $(srcdir)/emultempl/elf32.em $(srcdir)/emultempl/avr32elf.em \
+  $(srcdir)/scripttempl/avr32.sc ${GEN_DEPENDS}
+	${GENSCRIPTS} avr32elf_uc3l032 "$(tdir_avr32)" avr32elf
+eavr32elf_uc3l016.c: $(srcdir)/emulparams/avr32elf.sh \
+  $(srcdir)/emultempl/elf32.em $(srcdir)/emultempl/avr32elf.em \
+  $(srcdir)/scripttempl/avr32.sc ${GEN_DEPENDS}
+	${GENSCRIPTS} avr32elf_uc3l016 "$(tdir_avr32)" avr32elf
+eavr32elf_uc3l064revb.c: $(srcdir)/emulparams/avr32elf.sh \
+  $(srcdir)/emultempl/elf32.em $(srcdir)/emultempl/avr32elf.em \
+  $(srcdir)/scripttempl/avr32.sc ${GEN_DEPENDS}
+	${GENSCRIPTS} avr32elf_uc3l064revb "$(tdir_avr32)" avr32elf
+eavr32linux.c: $(srcdir)/emulparams/avr32linux.sh \
+  $(srcdir)/emultempl/elf32.em $(srcdir)/emultempl/avr32elf.em \
+  $(srcdir)/scripttempl/elf.sc ${GEN_DEPENDS}
+	${GENSCRIPTS} avr32linux "$(tdir_avr32)"
 ecoff_i860.c: $(srcdir)/emulparams/coff_i860.sh \
   $(srcdir)/emultempl/generic.em $(srcdir)/scripttempl/i860coff.sc ${GEN_DEPENDS}
 	${GENSCRIPTS} coff_i860 "$(tdir_coff_i860)"
@@ -2267,7 +2507,9 @@ install-exec-local: ld-new$(EXEEXT) install-binPROGRAMS
 	  fi; \
 	fi
 
-install-data-local:
+# We want install to imply install-info as per GNU standards, despite the
+# cygnus option.
+install-data-local: install-info
 	$(mkinstalldirs) $(DESTDIR)$(scriptdir)/ldscripts
 	for f in ldscripts/*; do \
 	  $(INSTALL_DATA) $$f $(DESTDIR)$(scriptdir)/$$f ; \
