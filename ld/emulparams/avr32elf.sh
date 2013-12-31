@@ -88,7 +88,7 @@ MEMORY
 "
       ;;
 
-avr32elf_uc3*)
+avr32elf_uc*)
     MACHINE=uc
     INITIAL_READONLY_SECTIONS=".reset : {  *(.reset) } >FLASH AT>FLASH"
     TEXT_START_ADDR=0x80000000
@@ -401,6 +401,29 @@ MEMORY
 "
         ;;
 
+    avr32elf_uc128d[34])
+        MEMORY="
+MEMORY
+{
+    FLASH (rxai!w) : ORIGIN = 0x80000000, LENGTH = 128K
+    CPUSRAM (wxa!ri) : ORIGIN = 0x00000004, LENGTH = 0x3FFC
+    USERPAGE : ORIGIN = 0x80800000, LENGTH = 256
+    FACTORYPAGE : ORIGIN = 0x80800100, LENGTH = 256
+}
+"
+        ;;
+
+    avr32elf_uc64d[34])
+        MEMORY="
+MEMORY
+{
+    FLASH (rxai!w) : ORIGIN = 0x80000000, LENGTH = 64K
+    CPUSRAM (wxa!ri) : ORIGIN = 0x00000004, LENGTH = 0x3FFC
+    USERPAGE : ORIGIN = 0x80800000, LENGTH = 256
+    FACTORYPAGE : ORIGIN = 0x80800100, LENGTH = 256
+}
+"
+        ;;
 
     esac
     ;;

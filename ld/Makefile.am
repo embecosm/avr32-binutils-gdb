@@ -208,6 +208,10 @@ ALL_EMULATION_SOURCES = \
 	eavr32elf_uc3b1256.c \
 	eavr32elf_uc3b1512.c \
 	eavr32elf_uc3b1512revc.c \
+	eavr32elf_uc64d3.c \
+	eavr32elf_uc128d3.c \
+	eavr32elf_uc64d4.c \
+	eavr32elf_uc128d4.c \
 	eavr32elf_uc3c0512crevc.c \
 	eavr32elf_uc3c1512crevc.c \
 	eavr32elf_uc3c2512crevc.c \
@@ -1050,6 +1054,22 @@ eavr32elf_uc3b1512revc.c: $(srcdir)/emulparams/avr32elf.sh \
   $(srcdir)/emultempl/elf32.em $(srcdir)/emultempl/avr32elf.em \
   $(srcdir)/scripttempl/avr32.sc ${GEN_DEPENDS}
 	${GENSCRIPTS} avr32elf_uc3b1512revc "$(tdir_avr32)" avr32elf
+eavr32elf_uc64d3.c: $(srcdir)/emulparams/avr32elf.sh \
+  $(srcdir)/emultempl/elf32.em $(srcdir)/emultempl/avr32elf.em \
+  $(srcdir)/scripttempl/avr32.sc ${GEN_DEPENDS}
+	${GENSCRIPTS} avr32elf_uc64d3 "$(tdir_avr32)" avr32elf
+eavr32elf_uc128d3.c: $(srcdir)/emulparams/avr32elf.sh \
+  $(srcdir)/emultempl/elf32.em $(srcdir)/emultempl/avr32elf.em \
+  $(srcdir)/scripttempl/avr32.sc ${GEN_DEPENDS}
+	${GENSCRIPTS} avr32elf_uc128d3 "$(tdir_avr32)" avr32elf
+eavr32elf_uc64d4.c: $(srcdir)/emulparams/avr32elf.sh \
+  $(srcdir)/emultempl/elf32.em $(srcdir)/emultempl/avr32elf.em \
+  $(srcdir)/scripttempl/avr32.sc ${GEN_DEPENDS}
+	${GENSCRIPTS} avr32elf_uc64d4 "$(tdir_avr32)" avr32elf
+eavr32elf_uc128d4.c: $(srcdir)/emulparams/avr32elf.sh \
+  $(srcdir)/emultempl/elf32.em $(srcdir)/emultempl/avr32elf.em \
+  $(srcdir)/scripttempl/avr32.sc ${GEN_DEPENDS}
+	${GENSCRIPTS} avr32elf_uc128d4 "$(tdir_avr32)" avr32elf
 eavr32elf_uc3c0512crevc.c: $(srcdir)/emulparams/avr32elf.sh \
   $(srcdir)/emultempl/elf32.em $(srcdir)/emultempl/avr32elf.em \
   $(srcdir)/scripttempl/avr32.sc ${GEN_DEPENDS}
