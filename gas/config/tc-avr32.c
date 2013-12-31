@@ -234,7 +234,7 @@ show_arch_list (FILE *stream)
 {
   int i, x;
 
-  fprintf (stream, _("Known architecture names:"));
+  fprintf (stream, _("Architectures supported by the assembler:"));
   x = 1000;
 
   for (i = 0; arch_types[i].name; i++)
@@ -344,7 +344,7 @@ md_parse_option (int c, char *arg ATTRIBUTE_UNUSED)
           {
             as_warn("Deprecated arch `%s' specified. "
                     "Please use '-march=ucr1' instead. "
-                    "Converting to arch 'ucr1'\n",
+                    "Using arch 'ucr1'\n",
                      s);
             s="ucr1";
           }
