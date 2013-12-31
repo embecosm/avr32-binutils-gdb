@@ -221,6 +221,8 @@ static struct part_type_s part_types[] =
     {"uc3l0256",      ARCH_TYPE_UCR3},
     {"uc3l0128",      ARCH_TYPE_UCR3},
     {"mxt768e",       ARCH_TYPE_UCR3},
+    {"mxt1664s",      ARCH_TYPE_UCR3},
+    {"mxt1664eng",    ARCH_TYPE_UCR3},
     {"uc3l064",       ARCH_TYPE_UCR3},
     {"uc3l032",       ARCH_TYPE_UCR3},
     {"uc3l016",       ARCH_TYPE_UCR3},

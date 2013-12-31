@@ -1,5 +1,11 @@
 2013-12-31  Jeremy Bennett  <jeremy.bennett@embecosm.com>
 
+	AVR32 patch 506-binutils-avr32-mxt1664s-mxt1664eng
+
+	* config/tc-avr32.c: Patches for AVR32.
+
+2013-12-31  Jeremy Bennett  <jeremy.bennett@embecosm.com>
+
 	AVR32 patch 505-binutils-avr32-uc3l3l4
 
 	* config/tc-avr32.c: Patches for AVR32.
