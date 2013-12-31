@@ -262,7 +262,7 @@ MEMORY
 "
         ;;
 
-    avr32elf_uc3a3256*)
+    avr32elf_uc3a[34]256*)
         MEMORY="
 MEMORY
 {
@@ -279,7 +279,7 @@ MEMORY
   		
         ;;
 
-    avr32elf_uc3a3128*)
+    avr32elf_uc3a[34]128*)
         MEMORY="
 MEMORY
 {
@@ -295,7 +295,7 @@ MEMORY
 "
         ;;
 
-    avr32elf_uc3a364*)
+    avr32elf_uc3a[34]64*)
         MEMORY="
 MEMORY
 {

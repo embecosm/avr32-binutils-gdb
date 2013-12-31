@@ -190,6 +190,12 @@ ALL_EMULATION_SOURCES = \
 	eavr32elf_uc3a3128s.c \
 	eavr32elf_uc3a3256.c \
 	eavr32elf_uc3a3256s.c \
+	eavr32elf_uc3a464.c \
+	eavr32elf_uc3a464s.c \
+	eavr32elf_uc3a4128.c \
+	eavr32elf_uc3a4128s.c \
+	eavr32elf_uc3a4256.c \
+	eavr32elf_uc3a4256s.c \
 	eavr32elf_uc3b064.c \
 	eavr32elf_uc3b0128.c \
 	eavr32elf_uc3b0256es.c \
@@ -972,6 +978,30 @@ eavr32elf_uc3a3256s.c: $(srcdir)/emulparams/avr32elf.sh \
   $(srcdir)/emultempl/elf32.em $(srcdir)/emultempl/avr32elf.em \
   $(srcdir)/scripttempl/avr32.sc ${GEN_DEPENDS}
 	${GENSCRIPTS} avr32elf_uc3a3256s "$(tdir_avr32)" avr32elf
+eavr32elf_uc3a464.c: $(srcdir)/emulparams/avr32elf.sh \
+  $(srcdir)/emultempl/elf32.em $(srcdir)/emultempl/avr32elf.em \
+  $(srcdir)/scripttempl/avr32.sc ${GEN_DEPENDS}
+	${GENSCRIPTS} avr32elf_uc3a464 "$(tdir_avr32)" avr32elf
+eavr32elf_uc3a464s.c: $(srcdir)/emulparams/avr32elf.sh \
+  $(srcdir)/emultempl/elf32.em $(srcdir)/emultempl/avr32elf.em \
+  $(srcdir)/scripttempl/avr32.sc ${GEN_DEPENDS}
+	${GENSCRIPTS} avr32elf_uc3a464s "$(tdir_avr32)" avr32elf
+eavr32elf_uc3a4128.c: $(srcdir)/emulparams/avr32elf.sh \
+  $(srcdir)/emultempl/elf32.em $(srcdir)/emultempl/avr32elf.em \
+  $(srcdir)/scripttempl/avr32.sc ${GEN_DEPENDS}
+	${GENSCRIPTS} avr32elf_uc3a4128 "$(tdir_avr32)" avr32elf
+eavr32elf_uc3a4128s.c: $(srcdir)/emulparams/avr32elf.sh \
+  $(srcdir)/emultempl/elf32.em $(srcdir)/emultempl/avr32elf.em \
+  $(srcdir)/scripttempl/avr32.sc ${GEN_DEPENDS}
+	${GENSCRIPTS} avr32elf_uc3a4128s "$(tdir_avr32)" avr32elf
+eavr32elf_uc3a4256.c: $(srcdir)/emulparams/avr32elf.sh \
+  $(srcdir)/emultempl/elf32.em $(srcdir)/emultempl/avr32elf.em \
+  $(srcdir)/scripttempl/avr32.sc ${GEN_DEPENDS}
+	${GENSCRIPTS} avr32elf_uc3a4256 "$(tdir_avr32)" avr32elf
+eavr32elf_uc3a4256s.c: $(srcdir)/emulparams/avr32elf.sh \
+  $(srcdir)/emultempl/elf32.em $(srcdir)/emultempl/avr32elf.em \
+  $(srcdir)/scripttempl/avr32.sc ${GEN_DEPENDS}
+	${GENSCRIPTS} avr32elf_uc3a4256s "$(tdir_avr32)" avr32elf
 eavr32elf_uc3b064.c: $(srcdir)/emulparams/avr32elf.sh \
   $(srcdir)/emultempl/elf32.em $(srcdir)/emultempl/avr32elf.em \
   $(srcdir)/scripttempl/avr32.sc ${GEN_DEPENDS}

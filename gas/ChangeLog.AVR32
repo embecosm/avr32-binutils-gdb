@@ -1,5 +1,11 @@
 2013-12-31  Jeremy Bennett  <jeremy.bennett@embecosm.com>
 
+	AVR32 patch 503-binutils-avr32-uc3a4
+
+	* config/tc-avr32.c: Patches for AVR32.
+
+2013-12-31  Jeremy Bennett  <jeremy.bennett@embecosm.com>
+
 	AVR32 patch 502-binutils-avr32-uc3l0128
 
 	* config/tc-avr32.c: Patches for AVR32.
