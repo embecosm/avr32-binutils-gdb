@@ -127,7 +127,79 @@ avr32elf_uc3*)
 "
 
     case "$EMULATION" in
-    avr32elf_uc3[ac][012]512*)
+    avr32elf_uc3c[012]512c)
+        MEMORY="
+MEMORY
+{
+    FLASH (rxai!w) : ORIGIN = 0x80000000, LENGTH = 512K
+    CPUSRAM (wxa!ri) : ORIGIN = 0x00000004, LENGTH = 0xFFFC
+    USERPAGE : ORIGIN = 0x80800000, LENGTH = 512
+    FACTORYPAGE : ORIGIN = 0x80800200, LENGTH = 512
+    FLASHVAULT_FLASH_SIZE (r) : ORIGIN = 0x80800400, LENGTH = 8
+    FLASHVAULT_RAM_SIZE (r) : ORIGIN = 0x80800408, LENGTH = 8
+}
+"
+        OTHER_SECTIONS="${OTHER_SECTIONS}
+  .flashvault_flash_size : { KEEP(*(.flashvault_flash_size .flashvault_flash_size.*)) } > FLASHVAULT_FLASH_SIZE
+  .flashvault_ram_size   : { KEEP(*(.flashvault_ram_size .flashvault_ram_size.*)) } > FLASHVAULT_RAM_SIZE
+"
+        ;;
+
+    avr32elf_uc3c[012]256c)
+        MEMORY="
+MEMORY
+{
+    FLASH (rxai!w) : ORIGIN = 0x80000000, LENGTH = 256K
+    CPUSRAM (wxa!ri) : ORIGIN = 0x00000004, LENGTH = 0xFFFC
+    USERPAGE : ORIGIN = 0x80800000, LENGTH = 512
+    FACTORYPAGE : ORIGIN = 0x80800200, LENGTH = 512
+    FLASHVAULT_FLASH_SIZE (r) : ORIGIN = 0x80800400, LENGTH = 8
+    FLASHVAULT_RAM_SIZE (r) : ORIGIN = 0x80800408, LENGTH = 8
+}
+"
+        OTHER_SECTIONS="${OTHER_SECTIONS}
+  .flashvault_flash_size : { KEEP(*(.flashvault_flash_size .flashvault_flash_size.*)) } > FLASHVAULT_FLASH_SIZE
+  .flashvault_ram_size   : { KEEP(*(.flashvault_ram_size .flashvault_ram_size.*)) } > FLASHVAULT_RAM_SIZE
+"
+        ;;
+
+    avr32elf_uc3c[012]128c)
+        MEMORY="
+MEMORY
+{
+    FLASH (rxai!w) : ORIGIN = 0x80000000, LENGTH = 128K
+    CPUSRAM (wxa!ri) : ORIGIN = 0x00000004, LENGTH = 0x7FFC
+    USERPAGE : ORIGIN = 0x80800000, LENGTH = 512
+    FACTORYPAGE : ORIGIN = 0x80800200, LENGTH = 512
+    FLASHVAULT_FLASH_SIZE (r) : ORIGIN = 0x80800400, LENGTH = 8
+    FLASHVAULT_RAM_SIZE (r) : ORIGIN = 0x80800408, LENGTH = 8
+}
+"
+        OTHER_SECTIONS="${OTHER_SECTIONS}
+  .flashvault_flash_size : { KEEP(*(.flashvault_flash_size .flashvault_flash_size.*)) } > FLASHVAULT_FLASH_SIZE
+  .flashvault_ram_size   : { KEEP(*(.flashvault_ram_size .flashvault_ram_size.*)) } > FLASHVAULT_RAM_SIZE
+"
+        ;;
+
+    avr32elf_uc3c[012]64c)
+        MEMORY="
+MEMORY
+{
+    FLASH (rxai!w) : ORIGIN = 0x80000000, LENGTH = 64K
+    CPUSRAM (wxa!ri) : ORIGIN = 0x00000004, LENGTH = 0x3FFC
+    USERPAGE : ORIGIN = 0x80800000, LENGTH = 512
+    FACTORYPAGE : ORIGIN = 0x80800200, LENGTH = 512
+    FLASHVAULT_FLASH_SIZE (r) : ORIGIN = 0x80800400, LENGTH = 8
+    FLASHVAULT_RAM_SIZE (r) : ORIGIN = 0x80800408, LENGTH = 8
+}
+"
+        OTHER_SECTIONS="${OTHER_SECTIONS}
+  .flashvault_flash_size : { KEEP(*(.flashvault_flash_size .flashvault_flash_size.*)) } > FLASHVAULT_FLASH_SIZE
+  .flashvault_ram_size   : { KEEP(*(.flashvault_ram_size .flashvault_ram_size.*)) } > FLASHVAULT_RAM_SIZE
+"
+        ;;
+
+   avr32elf_uc3[ac][012]512*)
        MEMORY="
 MEMORY
 {
@@ -139,7 +211,7 @@ MEMORY
 "
         ;;
 
-    avr32elf_uc3[ac][012]256*)
+    avr32elf_uc3a[012]256*)
         MEMORY="
 MEMORY
 {
@@ -195,7 +267,7 @@ MEMORY
 "
         ;;
 
-    avr32elf_uc3[abc][012]128*)
+    avr32elf_uc3[ab][012]128*)
         MEMORY="
 MEMORY
 {
@@ -207,7 +279,7 @@ MEMORY
 "
         ;;
 
-    avr32elf_uc3[bc][0123]64*)
+    avr32elf_uc3b[0123]64*)
         MEMORY="
 MEMORY
 {
@@ -322,6 +394,8 @@ MEMORY
   .flashvault_ram_size   : { KEEP(*(.flashvault_ram_size .flashvault_ram_size.*)) } > FLASHVAULT_RAM_SIZE
 "
         ;;
+
+
     esac
     ;;
 
