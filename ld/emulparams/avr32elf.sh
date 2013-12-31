@@ -63,6 +63,31 @@ MEMORY
     esac
     ;;
 
+avr32elf_mxt2952t)
+    MACHINE=uc
+    INITIAL_READONLY_SECTIONS=".reset : {  *(.reset) } >FLASH AT>FLASH"
+    TEXT_START_ADDR=0x80000000
+    OTHER_SECTIONS="
+  .userpage :  { *(.userpage .userpage.*)  } >USERPAGE AT>USERPAGE
+  .factorypage :  { *(.factorypage .factorypage.*)  } >FACTORYPAGE AT>FACTORYPAGE
+"
+        MEMORY="
+MEMORY
+{
+    FLASH (rxai!w) : ORIGIN = 0x80000000, LENGTH = 128K
+    CPUSRAM (wxa!ri) : ORIGIN = 0x00000004, LENGTH = 0x7FFC
+    USERPAGE : ORIGIN = 0x80800000, LENGTH = 64
+    FACTORYPAGE : ORIGIN = 0x80800040, LENGTH = 64
+    FLASHVAULT_FLASH_SIZE (r) : ORIGIN = 0x80800080, LENGTH = 8
+    FLASHVAULT_RAM_SIZE (r) : ORIGIN = 0x80800088, LENGTH = 8
+}
+"
+        OTHER_SECTIONS="${OTHER_SECTIONS}
+  .flashvault_flash_size : { KEEP(*(.flashvault_flash_size .flashvault_flash_size.*)) } > FLASHVAULT_FLASH_SIZE
+  .flashvault_ram_size   : { KEEP(*(.flashvault_ram_size .flashvault_ram_size.*)) } > FLASHVAULT_RAM_SIZE
+"
+      ;;
+
 avr32elf_mxt540e)
     MACHINE=uc
     INITIAL_READONLY_SECTIONS=".reset : {  *(.reset) } >FLASH AT>FLASH"
