@@ -25,6 +25,7 @@
 #include "gdb_string.h"
 #include <ctype.h>
 #include <fcntl.h>
+#include <string.h>
 #include "inferior.h"
 #include "bfd.h"
 #include "symfile.h"
@@ -353,7 +354,7 @@ init_remote_state (struct gdbarch *gdbarch)
      with a remote protocol number, in order of ascending protocol
      number.  */
 
-  remote_regs = alloca (gdbarch_num_regs (current_gdbarch) 
+  remote_regs = alloca (gdbarch_num_regs (current_gdbarch)
 			* sizeof (struct packet_reg *));
   for (num_remote_regs = 0, regnum = 0;
        regnum < gdbarch_num_regs (current_gdbarch);
@@ -509,7 +510,7 @@ static int remote_address_size;
 
 static int remote_async_terminal_ours_p;
 
-
+
 /* User configurable variables for the number of characters in a
    memory read/write packet.  MIN (rsa->remote_packet_size,
    rsa->sizeof_g_packet) is the default.  Some targets need smaller
@@ -693,7 +694,7 @@ get_memory_read_packet_size (void)
   return size;
 }
 
-
+
 /* Generic configuration support for packets the stub optionally
    supports. Allows the user to specify the use of the packet as well
    as allowing GDB to auto-detect support in the remote stub.  */
@@ -910,6 +911,7 @@ enum {
   PACKET_qGetTLSAddr,
   PACKET_qSupported,
   PACKET_QPassSignals,
+  PACKET_qPart_sysreg,
   PACKET_MAX
 };
 
@@ -1017,7 +1019,7 @@ static struct async_signal_handler *sigint_remote_token;
 
 void (*deprecated_target_resume_hook) (void);
 void (*deprecated_target_wait_loop_hook) (void);
-
+
 
 
 /* These are the threads which we last sent to the remote system.
@@ -1136,7 +1138,7 @@ set_thread (int th, int gen)
   else
     continue_thread = th;
 }
-
+
 /*  Return nonzero if the thread TH is still alive on the remote system.  */
 
 static int
@@ -1973,7 +1975,7 @@ remote_threads_extra_info (struct thread_info *tp)
       }
   return NULL;
 }
-
+
 
 /* Restart the remote side; this is an extended protocol operation.  */
 
@@ -1994,7 +1996,7 @@ extended_remote_restart (void)
   putpkt ("?");
   getpkt (&rs->buf, &rs->buf_size, 0);
 }
-
+
 /* Clean up connection to a remote debugger.  */
 
 static void
@@ -2266,7 +2268,7 @@ remote_check_symbols (struct objfile *objfile)
 	  xsnprintf (msg, get_remote_packet_size (), "qSymbol:%s:%s",
 		     paddr_nz (sym_addr), &reply[8]);
 	}
-  
+
       putpkt (msg);
       getpkt (&rs->buf, &rs->buf_size, 0);
       reply = rs->buf;
@@ -2777,7 +2779,7 @@ bin2hex (const gdb_byte *bin, char *hex, int count)
   *hex = 0;
   return i;
 }
-
+
 /* Check for the availability of vCont.  This function should also check
    the response.  */
 
@@ -2975,7 +2977,7 @@ remote_async_resume (ptid_t ptid, int step, enum target_signal siggnal)
   if (target_is_async_p ())
     target_executing = 1;
 }
-
+
 
 /* Set up the signal handler for SIGINT, while the target is
    executing, ovewriting the 'regular' SIGINT signal handler.  */
@@ -3983,7 +3985,7 @@ remote_store_registers (struct regcache *regcache, int regnum)
 	/* See above for why we do not issue an error here.  */
 	continue;
 }
-
+
 
 /* Return the number of hex digits in num.  */
 
@@ -4478,7 +4480,7 @@ remote_read_bytes (CORE_ADDR memaddr, gdb_byte *myaddr, int len)
     }
   return origlen;
 }
-
+
 /* Read or write LEN bytes from inferior memory at MEMADDR,
    transferring to or from debugger address BUFFER.  Write to inferior
    if SHOULD_WRITE is nonzero.  Returns length of data written or
@@ -4609,7 +4611,7 @@ remote_files_info (struct target_ops *ignore)
 {
   puts_filtered ("Debugging a target over a serial line.\n");
 }
-
+
 /* Stuff for dealing with the packets which are part of this protocol.
    See comment at top of file for details.  */
 
@@ -5067,7 +5069,7 @@ getpkt_sane (char **buf, long *sizeof_buf, int forever)
   serial_write (remote_desc, "+", 1);
   return -1;
 }
-
+
 static void
 remote_kill (void)
 {
@@ -5148,6 +5150,64 @@ remote_mourn_1 (struct target_ops *target)
   generic_mourn_inferior ();
 }
 
+/* Send the argument vector to the inferior program.  */
+static int
+remote_send_args (const char *exec_file, const char *args)
+{
+  char *outbuf;
+  char *hexstring;
+  int len;
+  int argnum = 0;
+  char *argbuf = xstrprintf ("%s", args);
+  char *curarg = argbuf;
+  struct remote_state *rs = get_remote_state ();
+
+  /* Add the executable file name to the argument vector. */
+  if ( !exec_file ){
+	  exec_file = "<unknown>";
+  }
+  len = strlen (exec_file);
+  hexstring = alloca (len*2+1);
+  bin2hex (exec_file, hexstring, 0);
+  outbuf = xstrprintf ("A%x,%x,%s",len*2, argnum++, hexstring);
+
+  while ( strlen (curarg) > 0 )
+    {
+      int arglen;
+      char *argend;
+      char *prev_outbuf = outbuf;
+
+      if ( (argend = strchr (curarg, ' ')) != NULL )
+    	  *argend = '\0';
+
+      len = strlen (curarg);
+      hexstring = alloca (len*2+1);
+      bin2hex (curarg, hexstring, 0);
+      outbuf = xstrprintf ("%s,%x,%x,%s", prev_outbuf, len*2, argnum++, hexstring);
+      make_cleanup (xfree, prev_outbuf);
+
+      /* Check if this is the last arg. */
+      if ( argend == NULL )
+    	  break;
+
+      curarg += len + 1;
+      /* Skip whitespace. */
+      while ( *curarg == ' ' )
+    	  curarg++;
+    };
+
+  putpkt (outbuf);
+  getpkt (&rs->buf, &rs->buf_size, 0);
+
+  make_cleanup (xfree, outbuf);
+  make_cleanup (xfree, argbuf);
+
+  if ( rs->buf[0] == 'E' )
+    return 0;
+
+  return 1;
+}
+
 /* In the extended protocol we want to be able to do things like
    "run" and have them basically work as expected.  So we need
    a special create_inferior function.
@@ -5180,6 +5240,8 @@ extended_remote_create_inferior (char *exec_file, char *args,
 
   /* Clean up from the last time we were running.  */
   clear_proceed_status ();
+
+  remote_send_args (exec_file, args);
 }
 
 /* Async version of extended_remote_create_inferior.  */
@@ -5214,7 +5276,7 @@ extended_remote_async_create_inferior (char *exec_file, char *args,
   /* Clean up from the last time we were running.  */
   clear_proceed_status ();
 }
-
+
 
 /* Insert a breakpoint.  On targets that have software breakpoint
    support, we ask the remote target to do the work; on targets
@@ -5640,28 +5702,28 @@ the loaded file\n"));
 
 static LONGEST
 remote_write_qxfer (struct target_ops *ops, const char *object_name,
-                    const char *annex, const gdb_byte *writebuf, 
-                    ULONGEST offset, LONGEST len, 
+                    const char *annex, const gdb_byte *writebuf,
+                    ULONGEST offset, LONGEST len,
                     struct packet_config *packet)
 {
   int i, buf_len;
   ULONGEST n;
   gdb_byte *wbuf;
   struct remote_state *rs = get_remote_state ();
-  int max_size = get_memory_write_packet_size (); 
+  int max_size = get_memory_write_packet_size ();
 
   if (packet->support == PACKET_DISABLE)
     return -1;
 
   /* Insert header.  */
-  i = snprintf (rs->buf, max_size, 
+  i = snprintf (rs->buf, max_size,
 		"qXfer:%s:write:%s:%s:",
 		object_name, annex ? annex : "",
 		phex_nz (offset, sizeof offset));
   max_size -= (i + 1);
 
   /* Escape as much data as fits into rs->buf.  */
-  buf_len = remote_escape_output 
+  buf_len = remote_escape_output
     (writebuf, len, (rs->buf + i), &max_size, max_size);
 
   if (putpkt_binary (rs->buf, i + buf_len) < 0
@@ -5784,6 +5846,114 @@ remote_xfer_partial (struct target_ops *ops, enum target_object object,
 	return 0;
       else
 	return -1;
+    }
+
+
+
+  /* This is fucked up, but so is the existing code.  We happen to be
+     able to support writes, so we don't want arbitrary limitations
+     preventing us from doing so.  There's also a warning below that
+     we shouldn't do something, so I guess we probably shouldn't (but
+     if we don't, the rest of the function is worthless to us.)
+     Better duplicate most of the code instead.  */
+  if (object == TARGET_OBJECT_SYSREG)
+    {
+      struct packet_config *cfg = NULL;
+      const char *object_name = NULL;
+
+      switch (object)
+	{
+	case TARGET_OBJECT_SYSREG:
+	  cfg = &remote_protocol_packets[PACKET_qPart_sysreg];
+	  if (cfg->support != PACKET_DISABLE)
+	    object_name = "sysreg";
+	  break;
+	}
+
+      if (object_name == NULL)
+	return -1;
+
+      /* Note: a zero OFFSET and LEN can be used to query the minimum
+	 buffer size.  */
+      if (offset == 0 && len == 0)
+	return (get_remote_packet_size ());
+
+      /* except for querying the minimum buffer size, target must be open */
+      if (!remote_desc)
+	error ("remote query is only available after target open");
+
+      gdb_assert (annex != NULL);
+      for (i = 0; annex[i]; i++)
+	/* Bad caller may have sent forbidden characters.  */
+	gdb_assert (isprint (annex[i]) && annex[i] != '$' && annex[i] != '#');
+
+      if (writebuf)
+	{
+	  LONGEST body_len, header_len, count;
+	  long max_len;
+	  char* buf = rs->buf;
+	  /* TODO: Use xsnprintf() like other parts of this code does? */
+	  max_len = get_remote_packet_size ();
+	  header_len = snprintf(rs->buf, max_len - 5,
+				"qPart:%s:write:%s:%s:",
+				object_name, annex ? annex : "",
+				phex_nz (offset, sizeof offset));
+	  body_len = max_len - header_len - 5;
+	  if (body_len < 0)
+	    return -1;
+
+	  /* Each byte takes two hex characters + null character at the end */
+	  count = len;
+	  if (count > (body_len - 1) / 2)
+	    count = (body_len - 1) / 2;
+
+	  bin2hex(writebuf, rs->buf + header_len, count);
+	  i = putpkt(rs->buf);
+	  if (i < 0)
+	    return i;
+
+	  rs->buf[0] = '\0';
+	  getpkt(&rs->buf, &rs->buf_size, 0);
+	  if (packet_ok(buf, cfg) != PACKET_OK)
+	    return -1;
+
+	  p2 = &buf[0];
+	  body_len = 0;
+	  while (*p2)
+	    body_len = (body_len << 4) + fromhex (*p2++);
+
+	  i = body_len;
+	}
+      else
+	{
+	  LONGEST n = min((get_remote_packet_size () - 5) / 2, len);
+	  LONGEST req_len;
+	  char* buf = rs->buf;
+
+	  req_len = snprintf(rs->buf, get_remote_packet_size () - 5,
+			     "qPart:%s:read:%s:%s,%s",
+			     object_name, annex,
+			     phex_nz (offset, sizeof(offset)),
+			     phex_nz (n, sizeof(n)));
+	  if (req_len > rs->buf_size - 5)
+	    return -1;
+
+	  i = putpkt(rs->buf);
+	  if (i < 0)
+	    return i;
+
+	  rs->buf[0] = '\0';
+	  len = get_remote_packet_size ();
+	  getpkt(&rs->buf, &rs->buf_size, 0);
+	  if (packet_ok(buf, cfg) != PACKET_OK)
+	    return -1;
+	  if (rs->buf[0] == 'O' && rs->buf[1] == 'K' && rs->buf[2] == '\0')
+	    return 0;
+
+	  i = hex2bin(rs->buf, readbuf, len);
+	}
+
+      return i;
     }
 
   /* Handle SPU memory using qxfer packets. */
@@ -6719,6 +6889,10 @@ Show the maximum size of the address (in bits) in a memory packet."), NULL,
 
   add_packet_config_cmd (&remote_protocol_packets[PACKET_qSupported],
 			 "qSupported", "supported-packets", 0);
+
+  add_packet_config_cmd (&remote_protocol_packets[PACKET_qPart_sysreg],
+			 "qPart_sysreg", "sysreg",
+			 0);
 
   /* Keep the old ``set remote Z-packet ...'' working.  Each individual
      Z sub-packet has its own set and show commands, but users may

@@ -1,0 +1,6 @@
+2013-12-31  Jeremy Bennett  <jeremy.bennett@embecosm.com>
+
+	AVR32 patch 30-gdb-6.7.1-avr32
+
+	* install-sh: Patches for AVR32.
+

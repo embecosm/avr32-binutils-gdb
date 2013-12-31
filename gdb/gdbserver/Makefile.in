@@ -121,6 +121,7 @@ SFILES=	$(srcdir)/gdbreplay.c $(srcdir)/inferiors.c \
 	$(srcdir)/remote-utils.c $(srcdir)/server.c $(srcdir)/target.c \
 	$(srcdir)/thread-db.c $(srcdir)/utils.c \
 	$(srcdir)/linux-arm-low.c $(srcdir)/linux-cris-low.c \
+	$(srcdir)/linux-avr32-low.c \
 	$(srcdir)/linux-crisv32-low.c $(srcdir)/linux-i386-low.c \
 	$(srcdir)/i387-fp.c \
 	$(srcdir)/linux-ia64-low.c $(srcdir)/linux-low.c \
@@ -218,6 +219,7 @@ clean:
 	rm -f reg-arm.c reg-i386.c reg-ia64.c reg-m32r.c reg-m68k.c
 	rm -f reg-ppc.c reg-sh.c reg-spu.c reg-x86-64.c reg-i386-linux.c
 	rm -f reg-cris.c reg-crisv32.c reg-x86-64-linux.c
+	rm -f reg-avr32.c
 	rm -f arm-with-iwmmxt.c mips-linux.c mips64-linux.c
 	rm -f xml-builtin.c stamp-xml target.xml
 
@@ -298,6 +300,7 @@ linux-low.o: linux-low.c $(linux_low_h) $(server_h)
 
 linux-arm-low.o: linux-arm-low.c $(linux_low_h) $(server_h) \
 	$(gdb_proc_service_h)
+linux-avr32-low.o: linux-avr32-low.c $(linux_low_h) $(server_h)
 linux-cris-low.o: linux-cris-low.c $(linux_low_h) $(server_h)
 linux-crisv32-low.o: linux-crisv32-low.c $(linux_low_h) $(server_h)
 linux-i386-low.o: linux-i386-low.c $(linux_low_h) $(server_h) \
@@ -320,6 +323,9 @@ spu-low.o: spu-low.c $(server_h)
 reg-arm.o : reg-arm.c $(regdef_h)
 reg-arm.c : $(srcdir)/../regformats/reg-arm.dat $(regdat_sh)
 	sh $(regdat_sh) $(srcdir)/../regformats/reg-arm.dat reg-arm.c
+reg-avr32.o : reg-avr32.c $(regdef_h)
+reg-avr32.c : $(srcdir)/../regformats/reg-avr32.dat $(regdat_sh)
+	sh $(regdat_sh) $(srcdir)/../regformats/reg-avr32.dat reg-avr32.c
 arm-with-iwmmxt.o : arm-with-iwmmxt.c $(regdef_h)
 arm-with-iwmmxt.c : $(srcdir)/../regformats/arm-with-iwmmxt.dat $(regdat_sh)
 	sh $(regdat_sh) $(srcdir)/../regformats/arm-with-iwmmxt.dat arm-with-iwmmxt.c

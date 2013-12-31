@@ -595,6 +595,7 @@ elf_internal_h =	$(INCLUDE_DIR)/elf/internal.h
 elf_reloc_macros_h =	$(INCLUDE_DIR)/elf/reloc-macros.h
 elf_sh_h =	$(INCLUDE_DIR)/elf/sh.h
 elf_arm_h =	$(INCLUDE_DIR)/elf/arm.h $(elf_reloc_macros_h)
+elf_avr32_h =	$(INCLUDE_DIR)/elf/avr32.h $(elf_reloc_macros_h)
 elf_bfd_h =	$(BFD_SRC)/elf-bfd.h
 elf_frv_h =	$(INCLUDE_DIR)/elf/frv.h $(elf_reloc_macros_h)
 elf_m32c_h =    $(INCLUDE_DIR)/elf/m32c.h $(elf_reloc_macros_h)
@@ -662,6 +663,7 @@ annotate_h = annotate.h $(symtab_h) $(gdbtypes_h)
 arch_utils_h = arch-utils.h
 arm_linux_tdep_h = arm-linux-tdep.h
 arm_tdep_h = arm-tdep.h
+avr32_tdep_h = avr32-tdep.h
 auxv_h = auxv.h
 ax_gdb_h = ax-gdb.h
 ax_h = ax.h $(doublest_h)
@@ -1443,6 +1445,7 @@ ALLDEPFILES = \
 	arm-linux-nat.c arm-linux-tdep.c arm-tdep.c \
 	armnbsd-nat.c armbsd-tdep.c armnbsd-tdep.c armobsd-tdep.c \
 	avr-tdep.c \
+	avr32-linux-tdep.c avr32-tdep.c \
 	bsd-uthread.c bsd-kvm.c \
 	core-regset.c corelow.c \
 	dcache.c exec.c \
@@ -1833,6 +1836,12 @@ avr-tdep.o: avr-tdep.c $(defs_h) $(frame_h) $(frame_unwind_h) \
 	$(frame_base_h) $(trad_frame_h) $(gdbcmd_h) $(gdbcore_h) \
 	$(inferior_h) $(symfile_h) $(arch_utils_h) $(regcache_h) \
 	$(gdb_string_h) $(dis_asm_h) $(gdbtypes_h)
+avr32-linux-tdep.o: avr32-linux-tdep.c $(defs_h) $(target_h) \
+	$(solib_svr4_h) $(osabi_h) $(avr32_tdep_h)
+avr32-tdep.o: avr32-tdep.c $(defs_h) $(frame_h) $(frame_unwind_h) \
+	$(dwarf2_frame_h) $(inferior_h) $(gdbcore_h) $(dis_asm_h) \
+	$(osabi_h) $(regcache_h) $(arch_utils_h) $(avr32_tdep_h) \
+	$(elf_bfd_h) $(elf_avr32_h) $(gdb_assert_h)
 ax-gdb.o: ax-gdb.c $(defs_h) $(symtab_h) $(symfile_h) $(gdbtypes_h) \
 	$(value_h) $(expression_h) $(command_h) $(gdbcmd_h) $(frame_h) \
 	$(target_h) $(ax_h) $(ax_gdb_h) $(gdb_string_h) $(block_h) \

@@ -212,7 +212,10 @@ enum target_object
      See "target-descriptions.c".  ANNEX should never be empty.  */
   TARGET_OBJECT_AVAILABLE_FEATURES,
   /* Currently loaded libraries, in XML format.  */
-  TARGET_OBJECT_LIBRARIES
+  TARGET_OBJECT_LIBRARIES,
+  /* System Register.  See "avr32-tdep.c and "remote.c". */
+  TARGET_OBJECT_SYSREG
+
   /* Possible future objects: TARGET_OBJECT_FILE, TARGET_OBJECT_PROC, ... */
 };
 

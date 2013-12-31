@@ -39,6 +39,11 @@ case "${target}" in
 			srv_mingw=yes
 			srv_mingwce=yes
 			;;
+  avr32*-*-linux*)	srv_regobj=reg-avr32.o
+			srv_tgtobj="linux-low.o linux-avr32-low.o"
+			srv_linux_usrregs=yes
+			srv_linux_thread_db=yes
+			;;
   crisv32-*-linux*)	srv_regobj=reg-crisv32.o
 			srv_tgtobj="linux-low.o linux-crisv32-low.o"
 			srv_linux_regsets=yes
