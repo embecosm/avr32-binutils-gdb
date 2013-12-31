@@ -29,6 +29,7 @@ LIBIBERTY = ../libiberty/libiberty.a
 
 # Header files.
 HFILES = \
+	avr32-asm.h avr32-opc.h \
 	cgen-ops.h cgen-types.h \
 	fr30-desc.h fr30-opc.h \
 	frv-desc.h frv-opc.h \
@@ -63,6 +64,9 @@ CFILES = \
 	arc-ext.c \
 	arm-dis.c \
 	avr-dis.c \
+	avr32-asm.c \
+	avr32-dis.c \
+	avr32-opc.c \
 	bfin-dis.c \
 	cgen-asm.c \
 	cgen-bitset.c \
@@ -217,6 +221,9 @@ ALL_MACHINES = \
 	arc-ext.lo \
 	arm-dis.lo \
 	avr-dis.lo \
+	avr32-asm.lo \
+	avr32-dis.lo \
+	avr32-opc.lo \
 	bfin-dis.lo \
 	cgen-asm.lo \
 	cgen-bitset.lo \
@@ -674,6 +681,15 @@ avr-dis.lo: avr-dis.c sysdep.h config.h $(INCDIR)/ansidecl.h \
   $(INCDIR)/dis-asm.h $(BFD_H) $(INCDIR)/ansidecl.h $(INCDIR)/symcat.h \
   opintl.h $(INCDIR)/libiberty.h $(INCDIR)/ansidecl.h \
   $(INCDIR)/opcode/avr.h
+avr32-asm.lo: avr32-asm.c sysdep.h config.h $(INCDIR)/ansidecl.h \
+  $(BFD_H) $(INCDIR)/symcat.h avr32-opc.h opintl.h \
+  $(INCDIR)/xregex.h $(INCDIR)/xregex2.h \
+  $(INCDIR)/libiberty.h $(INCDIR)/safe-ctype.h
+avr32-dis.lo: avr32-dis.c sysdep.h config.h $(INCDIR)/ansidecl.h \
+  $(INCDIR)/dis-asm.h $(BFD_H) $(INCDIR)/symcat.h $(INCDIR)/libiberty.h \
+  avr32-opc.h opintl.h
+avr32-opc.lo: avr32-opc.c sysdep.h config.h $(INCDIR)/ansidecl.h \
+  $(BFD_H) $(INCDIR)/symcat.h avr32-opc.h $(INCDIR)/libiberty.h
 bfin-dis.lo: bfin-dis.c $(INCDIR)/opcode/bfin.h $(INCDIR)/dis-asm.h \
   $(BFD_H) $(INCDIR)/ansidecl.h $(INCDIR)/symcat.h
 cgen-asm.lo: cgen-asm.c sysdep.h config.h $(INCDIR)/ansidecl.h \
