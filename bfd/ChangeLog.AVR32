@@ -1,5 +1,20 @@
 2013-12-31  Jeremy Bennett  <jeremy.bennett@embecosm.com>
 
+	AVR32 patch 300-binutils-avr32-bfd
+
+	* archures.c: Patches for AVR32.
+	* config.bfd: Patches for AVR32.
+	* configure.in: Patches for AVR32.
+	* cpu-avr32.c: Patches for AVR32.
+	* elf32-avr32.c: Patches for AVR32.
+	* elf32-avr32.h: Patches for AVR32.
+	* elf-bfd.h: Patches for AVR32.
+	* Makefile.am: Patches for AVR32.
+	* reloc.c: Patches for AVR32.
+	* targets.c: Patches for AVR32.
+
+2013-12-31  Jeremy Bennett  <jeremy.bennett@embecosm.com>
+
 	AVR32 patch 201-binutils-avr32-upgrade-fix
 
 	* compress.c: Patches for AVR32.
