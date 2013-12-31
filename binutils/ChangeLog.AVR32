@@ -1,0 +1,6 @@
+2013-12-31  Jeremy Bennett  <jeremy.bennett@embecosm.com>
+
+	AVR32 patch 301-binutils-avr32-binutils
+
+	* readelf.c: Patches for AVR32.
+
