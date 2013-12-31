@@ -2291,6 +2291,10 @@ relax_frag (segT segment, fragS *fragP, long stretch)
 
 #endif /* defined (TC_GENERIC_RELAX_TABLE)  */
 
+#ifdef TC_RELAX_ALIGN
+#define RELAX_ALIGN(SEG, FRAG, ADDR) TC_RELAX_ALIGN(SEG, FRAG, ADDR)
+#else
+#define RELAX_ALIGN(SEG, FRAG, ADDR) relax_align(ADDR, (FRAG)->fr_offset)
 /* Relax_align. Advance location counter to next address that has 'alignment'
    lowest order bits all 0s, return size of adjustment made.  */
 static relax_addressT
@@ -2310,6 +2314,7 @@ relax_align (register relax_addressT address,	/* Address now.  */
 #endif
   return (new_address - address);
 }
+#endif
 
 /* Now we have a segment, not a crowd of sub-segments, we can make
    fr_address values.
@@ -2356,7 +2361,7 @@ relax_segment (struct frag *segment_frag_root, segT segment, int pass)
 	case rs_align_code:
 	case rs_align_test:
 	  {
-	    addressT offset = relax_align (address, (int) fragP->fr_offset);
+	    addressT offset = RELAX_ALIGN(segment, fragP, address);
 
 	    if (fragP->fr_subtype != 0 && offset > fragP->fr_subtype)
 	      offset = 0;
@@ -2567,10 +2572,10 @@ relax_segment (struct frag *segment_frag_root, segT segment, int pass)
 		{
 		  addressT oldoff, newoff;
 
-		  oldoff = relax_align (was_address + fragP->fr_fix,
-					(int) offset);
-		  newoff = relax_align (address + fragP->fr_fix,
-					(int) offset);
+		  oldoff = RELAX_ALIGN (segment, fragP,
+					was_address + fragP->fr_fix);
+		  newoff = RELAX_ALIGN (segment, fragP,
+					address + fragP->fr_fix);
 
 		  if (fragP->fr_subtype != 0)
 		    {

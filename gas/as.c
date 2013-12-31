@@ -464,10 +464,10 @@ parse_args (int * pargc, char *** pargv)
        the end of the preceding line so that it is simpler to
        selectively add and remove lines from this list.  */
     {"alternate", no_argument, NULL, OPTION_ALTERNATE}
-    /* The entry for "a" is here to prevent getopt_long_only() from
-       considering that -a is an abbreviation for --alternate.  This is
-       necessary because -a=<FILE> is a valid switch but getopt would
-       normally reject it since --alternate does not take an argument.  */
+    /* The next two entries are here to prevent getopt_long_only() from
+       considering that -a or -al is an abbreviation for --alternate.
+       This is necessary because -a=<FILE> is a valid switch but getopt
+       would normally reject it since --alternate does not take an argument.  */
     ,{"a", optional_argument, NULL, 'a'}
     /* Handle -al=<FILE>.  */
     ,{"al", optional_argument, NULL, OPTION_AL}
@@ -854,8 +854,15 @@ This program has absolutely no warranty.\n"));
 	case 'a':
 	  if (optarg)
 	    {
-	      if (optarg != old_argv[optind] && optarg[-1] == '=')
+	      /* If optarg is part of the -a switch and not a separate argument
+		 in its own right, then scan backwards to the just after the -a.
+		 This means skipping over both '=' and 'l' which might have been
+		 taken to be part of the -a switch itself.  */
+	      if (optarg != old_argv[optind])
+		{
+		  while (optarg[-1] == '=' || optarg[-1] == 'l')
 		--optarg;
+		}
 
 	      if (md_parse_option (optc, optarg) != 0)
 		break;
@@ -997,7 +1004,7 @@ close_output_file (void)
 {
   output_file_close (out_file_name);
   if (!keep_it)
-    unlink_if_ordinary (out_file_name);
+    unlink (out_file_name);
 }
 
 /* The interface between the macro code and gas expression handling.  */

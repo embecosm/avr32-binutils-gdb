@@ -1,0 +1,49 @@
+2013-12-31  Jeremy Bennett  <jeremy.bennett@embecosm.com>
+
+	AVR32 patch 302-binutils-avr32-gas
+
+	* as.c: Patches for AVR32.
+	* config/tc-avr32.c: Patches for AVR32.
+	* config/tc-avr32.h: Patches for AVR32.
+	* configure.tgt: Patches for AVR32.
+	* doc/all.texi: Patches for AVR32.
+	* doc/as.texinfo: Patches for AVR32.
+	* doc/c-avr32.texi: Patches for AVR32.
+	* doc/Makefile.am: Patches for AVR32.
+	* Makefile.am: Patches for AVR32.
+	* testsuite/gas/avr32/aliases.d: Patches for AVR32.
+	* testsuite/gas/avr32/aliases.s: Patches for AVR32.
+	* testsuite/gas/avr32/allinsn.d: Patches for AVR32.
+	* testsuite/gas/avr32/allinsn.exp: Patches for AVR32.
+	* testsuite/gas/avr32/allinsn.s: Patches for AVR32.
+	* testsuite/gas/avr32/avr32.exp: Patches for AVR32.
+	* testsuite/gas/avr32/call_nopic.d: Patches for AVR32.
+	* testsuite/gas/avr32/call_nopic_linkrelax.d: Patches for AVR32.
+	* testsuite/gas/avr32/call_pic.d: Patches for AVR32.
+	* testsuite/gas/avr32/call_pic_linkrelax.d: Patches for AVR32.
+	* testsuite/gas/avr32/call.s: Patches for AVR32.
+	* testsuite/gas/avr32/dwarf2.d: Patches for AVR32.
+	* testsuite/gas/avr32/dwarf2.s: Patches for AVR32.
+	* testsuite/gas/avr32/fpinsn.d: Patches for AVR32.
+	* testsuite/gas/avr32/fpinsn.s: Patches for AVR32.
+	* testsuite/gas/avr32/hwrd-lwrd.d: Patches for AVR32.
+	* testsuite/gas/avr32/hwrd-lwrd.s: Patches for AVR32.
+	* testsuite/gas/avr32/jmptable.d: Patches for AVR32.
+	* testsuite/gas/avr32/jmptable_linkrelax.d: Patches for AVR32.
+	* testsuite/gas/avr32/jmptable.s: Patches for AVR32.
+	* testsuite/gas/avr32/lda_nopic.d: Patches for AVR32.
+	* testsuite/gas/avr32/lda_nopic_linkrelax.d: Patches for AVR32.
+	* testsuite/gas/avr32/lda_pic.d: Patches for AVR32.
+	* testsuite/gas/avr32/lda_pic_linkrelax.d: Patches for AVR32.
+	* testsuite/gas/avr32/lda.s: Patches for AVR32.
+	* testsuite/gas/avr32/pcrel.d: Patches for AVR32.
+	* testsuite/gas/avr32/pcrel.s: Patches for AVR32.
+	* testsuite/gas/avr32/pico.d: Patches for AVR32.
+	* testsuite/gas/avr32/pico.s: Patches for AVR32.
+	* testsuite/gas/avr32/pic_reloc.d: Patches for AVR32.
+	* testsuite/gas/avr32/pic_reloc.s: Patches for AVR32.
+	* testsuite/gas/avr32/symdiff.d: Patches for AVR32.
+	* testsuite/gas/avr32/symdiff_linkrelax.d: Patches for AVR32.
+	* testsuite/gas/avr32/symdiff.s: Patches for AVR32.
+	* write.c: Patches for AVR32.
+

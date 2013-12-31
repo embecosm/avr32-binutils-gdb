@@ -6953,6 +6953,9 @@ subject, see the hardware manufacturer's manual.
 @ifset AVR
 * AVR-Dependent::               AVR Dependent Features
 @end ifset
+@ifset AVR32
+* AVR32-Dependent::               AVR32 Dependent Features
+@end ifset
 @ifset Blackfin
 * Blackfin-Dependent::		Blackfin Dependent Features
 @end ifset
@@ -7117,6 +7120,10 @@ subject, see the hardware manufacturer's manual.
 
 @ifset AVR
 @include c-avr.texi
+@end ifset
+
+@ifset AVR32
+@include c-avr32.texi
 @end ifset
 
 @ifset Blackfin

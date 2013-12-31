@@ -31,6 +31,7 @@
 @set ARC
 @set ARM
 @set AVR
+@set AVR32
 @set Blackfin
 @set CR16
 @set CRIS
