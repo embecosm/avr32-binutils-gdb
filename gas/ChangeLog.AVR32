@@ -1,5 +1,13 @@
 2013-12-31  Jeremy Bennett  <jeremy.bennett@embecosm.com>
 
+	AVR32 patch 400-binutils-avr32-fixes
+
+	* as.h: Patches for AVR32.
+	* atof-generic.c: Patches for AVR32.
+	* config/atof-vax.c: Patches for AVR32.
+
+2013-12-31  Jeremy Bennett  <jeremy.bennett@embecosm.com>
+
 	AVR32 patch 302-binutils-avr32-gas
 
 	* as.c: Patches for AVR32.

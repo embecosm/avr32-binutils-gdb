@@ -89,6 +89,7 @@
 #endif
 #define gas_assert(P) \
   ((void) ((P) ? 0 : (as_assert (__FILE__, __LINE__, __PRETTY_FUNCTION__), 0)))
+#define assert(P)   gas_assert(P)
 #undef abort
 #define abort()		as_abort (__FILE__, __LINE__, __PRETTY_FUNCTION__)
 

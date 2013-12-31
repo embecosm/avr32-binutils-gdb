@@ -3866,6 +3866,7 @@ avr32_elf_grok_psinfo(bfd *abfd, Elf_Internal_Note *note)
 
 #define ELF_ARCH			bfd_arch_avr32
 #define ELF_MACHINE_CODE		EM_AVR32
+#define ELF_MACHINE_ALT1	        EM_AVR32_OLD
 #define ELF_TARGET_ID			AVR32_ELF_DATA
 #define ELF_MAXPAGESIZE			1024
 
