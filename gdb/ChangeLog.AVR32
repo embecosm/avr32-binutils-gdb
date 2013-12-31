@@ -1,0 +1,6 @@
+2013-12-31  Jeremy Bennett  <jeremy.bennett@embecosm.com>
+
+	AVR32 patch 10-gdb-6.7.1-avr32-atmel-version
+
+	* version.in: Patches for AVR32.
+
