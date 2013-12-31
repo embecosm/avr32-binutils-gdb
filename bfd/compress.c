@@ -180,7 +180,7 @@ bfd_get_full_section_contents (bfd *abfd, sec_ptr sec, bfd_byte **ptr)
     case COMPRESS_SECTION_NONE:
       if (p == NULL)
 	{
-	  p = (bfd_byte *) bfd_malloc (sz);
+	  p = (bfd_byte *) bfd_malloc (sec->rawsize > sec->size ? sec->rawsize : sec->size);
 	  if (p == NULL)
 	    return FALSE;
 	}
