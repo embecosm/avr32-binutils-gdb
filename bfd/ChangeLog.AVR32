@@ -1,3 +1,11 @@
+2014-01-03  Jeremy Bennett  <jeremy.bennett@embecosm.com>
+
+	* Makefile.in: Regenerated for AVR32.
+	* aclocal.m4: Likewise.
+	* config.in: Likewise.
+	* configure: Likewise.
+	* doc/Makefile.in: Likewise.
+
 2013-12-31  Jeremy Bennett  <jeremy.bennett@embecosm.com>
 
 	AVR32 patch 31-gdb-6.7.1-avr32-bfd

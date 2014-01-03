@@ -1,0 +1,14 @@
+2014-01-03  Jeremy Bennett  <jeremy.bennett@embecosm.com>
+
+	* aclocal.m4: Regenerated for AVR32.
+	* config.in: Likewise.
+	* configure: Likewise.
+
+2013-12-31  Jeremy Bennett  <jeremy.bennett@embecosm.com>
+
+	AVR32 patch 30-gdb-6.7.1-avr32
+
+	* Makefile.in: Patches for AVR32.
+	* configure.srv: Patches for AVR32.
+	* linux-avr32-low.c: Patches for AVR32.
+
