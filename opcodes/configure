@@ -12491,6 +12491,7 @@ if test x${all_targets} = xfalse ; then
 	bfd_arc_arch)		ta="$ta arc-dis.lo arc-opc.lo arc-ext.lo" ;;
 	bfd_arm_arch)		ta="$ta arm-dis.lo" ;;
 	bfd_avr_arch)		ta="$ta avr-dis.lo" ;;
+	bfd_avr32_arch)		ta="$ta avr32-asm.lo avr32-dis.lo avr32-opc.lo" ;;
 	bfd_bfin_arch)		ta="$ta bfin-dis.lo" ;;
 	bfd_cr16_arch)    	ta="$ta cr16-dis.lo cr16-opc.lo" ;;
 	bfd_cris_arch)		ta="$ta cris-dis.lo cris-opc.lo cgen-bitset.lo" ;;
@@ -12557,7 +12558,7 @@ if test x${all_targets} = xfalse ; then
 				ta="$ta sh64-dis.lo sh64-opc.lo"
 				archdefs="$archdefs -DINCLUDE_SHMEDIA"
 				break;;
-	    esac;
+	    esac
 	  done
 				ta="$ta sh-dis.lo cgen-bitset.lo" ;;
 	bfd_sparc_arch)		ta="$ta sparc-dis.lo sparc-opc.lo" ;;

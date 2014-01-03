@@ -1,3 +1,8 @@
+2014-01-03  Jeremy Bennett  <jeremy.bennett@embecosm.com>
+
+	* Makefile.in: Regenerated for AVR32.
+	* doc/Makefile.in: Regenerated for AVR32.
+
 2013-12-31  Jeremy Bennett  <jeremy.bennett@embecosm.com>
 
 	AVR32 patch 509-binutils-avr32-mxt2952t

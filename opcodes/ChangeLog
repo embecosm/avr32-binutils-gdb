@@ -1,3 +1,7 @@
+2014-01-03  Jeremy Bennett  <jeremy.bennett@embecosm.com>
+
+	* configure: Regenerated for AVR32.
+
 2012-10-09  Nagajyothi Eggone  <nagajyothi.eggone@amd.com>
 
 	* i386-gen.c (cpu_flag_init): Add CPU_BDVER3_FLAGS.

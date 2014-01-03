@@ -380,6 +380,7 @@ TARGET_CPU_CFILES = \
 	config/tc-arc.c \
 	config/tc-arm.c \
 	config/tc-avr.c \
+	config/tc-avr32.c \
 	config/tc-bfin.c \
 	config/tc-cr16.c \
 	config/tc-cris.c \
@@ -450,6 +451,7 @@ TARGET_CPU_HFILES = \
 	config/tc-arc.h \
 	config/tc-arm.h \
 	config/tc-avr.h \
+	config/tc-avr32.h \
 	config/tc-bfin.h \
 	config/tc-cr16.h \
 	config/tc-cris.h \
@@ -800,6 +802,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tc-arc.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tc-arm.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tc-avr.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tc-avr32.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tc-bfin.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tc-cr16.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/tc-cris.Po@am__quote@
@@ -956,6 +959,20 @@ tc-avr.obj: config/tc-avr.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='config/tc-avr.c' object='tc-avr.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o tc-avr.obj `if test -f 'config/tc-avr.c'; then $(CYGPATH_W) 'config/tc-avr.c'; else $(CYGPATH_W) '$(srcdir)/config/tc-avr.c'; fi`
+
+tc-avr32.o: config/tc-avr32.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT tc-avr32.o -MD -MP -MF $(DEPDIR)/tc-avr32.Tpo -c -o tc-avr32.o `test -f 'config/tc-avr32.c' || echo '$(srcdir)/'`config/tc-avr32.c
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/tc-avr32.Tpo $(DEPDIR)/tc-avr32.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='config/tc-avr32.c' object='tc-avr32.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o tc-avr32.o `test -f 'config/tc-avr32.c' || echo '$(srcdir)/'`config/tc-avr32.c
+
+tc-avr32.obj: config/tc-avr32.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT tc-avr32.obj -MD -MP -MF $(DEPDIR)/tc-avr32.Tpo -c -o tc-avr32.obj `if test -f 'config/tc-avr32.c'; then $(CYGPATH_W) 'config/tc-avr32.c'; else $(CYGPATH_W) '$(srcdir)/config/tc-avr32.c'; fi`
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/tc-avr32.Tpo $(DEPDIR)/tc-avr32.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='config/tc-avr32.c' object='tc-avr32.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o tc-avr32.obj `if test -f 'config/tc-avr32.c'; then $(CYGPATH_W) 'config/tc-avr32.c'; else $(CYGPATH_W) '$(srcdir)/config/tc-avr32.c'; fi`
 
 tc-bfin.o: config/tc-bfin.c
 @am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT tc-bfin.o -MD -MP -MF $(DEPDIR)/tc-bfin.Tpo -c -o tc-bfin.o `test -f 'config/tc-bfin.c' || echo '$(srcdir)/'`config/tc-bfin.c

@@ -2127,6 +2127,12 @@ enum bfd_architecture
 #define bfd_mach_avrxmega5 105
 #define bfd_mach_avrxmega6 106
 #define bfd_mach_avrxmega7 107
+  bfd_arch_avr32,     /* Atmel AVR32 */
+#define bfd_mach_avr32_ap      7000
+#define bfd_mach_avr32_uc      3000
+#define bfd_mach_avr32_ucr1    3001
+#define bfd_mach_avr32_ucr2    3002
+#define bfd_mach_avr32_ucr3    3003
   bfd_arch_bfin,        /* ADI Blackfin */
 #define bfd_mach_bfin          1
   bfd_arch_cr16,       /* National Semiconductor CompactRISC (ie CR16). */
@@ -4215,6 +4221,88 @@ in .byte hlo8(symbol)  */
   BFD_RELOC_RX_ABS16UW,
   BFD_RELOC_RX_ABS16UL,
   BFD_RELOC_RX_RELAX,
+
+/* Difference between two labels: L2 - L1. The value of L1 is encoded
+as sym + addend, while the initial difference after assembly is
+inserted into the object file by the assembler.  */
+  BFD_RELOC_AVR32_DIFF32,
+  BFD_RELOC_AVR32_DIFF16,
+  BFD_RELOC_AVR32_DIFF8,
+
+/* Reference to a symbol through the Global Offset Table. The linker
+will allocate an entry for symbol in the GOT and insert the offset
+of this entry as the relocation value.  */
+  BFD_RELOC_AVR32_GOT32,
+  BFD_RELOC_AVR32_GOT16,
+  BFD_RELOC_AVR32_GOT8,
+
+/* Normal (non-pc-relative) code relocations. Alignment and signedness
+is indicated by the suffixes. S means signed, U means unsigned. W
+means word-aligned, H means halfword-aligned, neither means
+byte-aligned (no alignment.) SUB5 is the same relocation as 16S.  */
+  BFD_RELOC_AVR32_21S,
+  BFD_RELOC_AVR32_16U,
+  BFD_RELOC_AVR32_16S,
+  BFD_RELOC_AVR32_SUB5,
+  BFD_RELOC_AVR32_8S_EXT,
+  BFD_RELOC_AVR32_8S,
+  BFD_RELOC_AVR32_15S,
+
+/* PC-relative relocations are signed if neither 'U' nor 'S' is
+specified. However, we explicitly tack on a 'B' to indicate no
+alignment, to avoid confusion with data relocs. All of these resolve
+to sym + addend - offset, except the one with 'N' (negated) suffix.
+This particular one resolves to offset - sym - addend.  */
+  BFD_RELOC_AVR32_22H_PCREL,
+  BFD_RELOC_AVR32_18W_PCREL,
+  BFD_RELOC_AVR32_16B_PCREL,
+  BFD_RELOC_AVR32_16N_PCREL,
+  BFD_RELOC_AVR32_14UW_PCREL,
+  BFD_RELOC_AVR32_11H_PCREL,
+  BFD_RELOC_AVR32_10UW_PCREL,
+  BFD_RELOC_AVR32_9H_PCREL,
+  BFD_RELOC_AVR32_9UW_PCREL,
+
+/* Subtract the link-time address of the GOT from (symbol + addend)
+and insert the result.  */
+  BFD_RELOC_AVR32_GOTPC,
+
+/* Reference to a symbol through the GOT. The linker will allocate an
+entry for symbol in the GOT and insert the offset of this entry as
+the relocation value. addend must be zero. As usual, 'S' means
+signed, 'W' means word-aligned, etc.  */
+  BFD_RELOC_AVR32_GOTCALL,
+  BFD_RELOC_AVR32_LDA_GOT,
+  BFD_RELOC_AVR32_GOT21S,
+  BFD_RELOC_AVR32_GOT18SW,
+  BFD_RELOC_AVR32_GOT16S,
+
+/* 32-bit constant pool entry. I don't think 8- and 16-bit entries make
+a whole lot of sense.  */
+  BFD_RELOC_AVR32_32_CPENT,
+
+/* Constant pool references. Some of these relocations are signed,
+others are unsigned. It doesn't really matter, since the constant
+pool always comes after the code that references it.  */
+  BFD_RELOC_AVR32_CPCALL,
+  BFD_RELOC_AVR32_16_CP,
+  BFD_RELOC_AVR32_9W_CP,
+
+/* sym must be the absolute symbol. The addend specifies the alignment
+order, e.g. if addend is 2, the linker must add padding so that the
+next address is aligned to a 4-byte boundary.  */
+  BFD_RELOC_AVR32_ALIGN,
+
+/* Code relocations that will never make it to the output file.  */
+  BFD_RELOC_AVR32_14UW,
+  BFD_RELOC_AVR32_10UW,
+  BFD_RELOC_AVR32_10SW,
+  BFD_RELOC_AVR32_STHH_W,
+  BFD_RELOC_AVR32_7UW,
+  BFD_RELOC_AVR32_6S,
+  BFD_RELOC_AVR32_6UW,
+  BFD_RELOC_AVR32_4UH,
+  BFD_RELOC_AVR32_3U,
 
 /* Direct 12 bit.  */
   BFD_RELOC_390_12,
