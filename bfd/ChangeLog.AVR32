@@ -1,7 +1,6 @@
 2014-01-04  Jeremy Bennett  <jeremy.bennett@embecosm.com>
 
         * libtool.m4: Replace symbolic link with actual file.
-        * ltmain.sh: Likewise.
         * ltoptions.m4: Likewise.
         * ltsugar.m4: Likewise.
         * ltversion.m4: Likewise.
