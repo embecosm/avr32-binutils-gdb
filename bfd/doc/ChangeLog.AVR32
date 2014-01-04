@@ -1,7 +1,8 @@
 2014-01-04  Jeremy Bennett  <jeremy.bennett@embecosm.com>
 
-	* configure: Regenerated for AVR32.
+	* doc/ChangeLog.AVR32: Created.
+	* Makefile.in: Regenerated for AVR32.
 
 2014-01-03  Jeremy Bennett  <jeremy.bennett@embecosm.com>
 
-	* configure: Regenerated for AVR32.
+	* Makefile.in: Regenerated for AVR32.

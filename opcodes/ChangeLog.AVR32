@@ -1,3 +1,10 @@
+2014-01-04  Jeremy Bennett  <jeremy.bennett@embecosm.com>
+
+	* Makefile.in: Regenerated for AVR32.
+	* aclocal.m4: Likewise.
+	* config.in: Likewise.
+	* configure: Likewise.
+
 2014-01-03  Jeremy Bennett  <jeremy.bennett@embecosm.com>
 
 	* Makefile.in: Regenerated for AVR32.

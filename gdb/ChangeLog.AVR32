@@ -1,3 +1,8 @@
+2014-01-04  Jeremy Bennett  <jeremy.bennett@embecosm.com>
+
+	* aclocal.m4: Regenerated for AVR32.
+	* configure: Likewise.
+
 2014-01-03  Jeremy Bennett  <jeremy.bennett@embecosm.com>
 
 	* aclocal.m4: Regenerated for AVR32.
