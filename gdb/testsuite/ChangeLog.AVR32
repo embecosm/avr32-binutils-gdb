@@ -1,0 +1,17 @@
+2014-01-04  Jeremy Bennett  <jeremy.bennett@embecosm.com>
+
+	* gdb.hp/gdb.aCC/configure: Regenerated for AVR32.
+	* gdb.hp/gdb.base-hp/configure: Likewise.
+	* gdb.hp/gdb.compat/configure: Likewise.
+	* gdb.hp/gdb.defects/configure: Likewise.
+
+2014-01-03  Jeremy Bennett  <jeremy.bennett@embecosm.com>
+
+	* gdb.hp/configure: Regenerated for AVR32.
+	* gdb.hp/gdb.aCC/configure: Likewise.
+	* gdb.hp/gdb.base-hp/configure: Likewise.
+	* gdb.hp/gdb.compat/configure: Likewise.
+	* gdb.hp/gdb.defects/configure: Likewise.
+	* gdb.hp/gdb.objdbg/configure: Likewise.
+	* gdb.stabs/configure: Likewise.
+

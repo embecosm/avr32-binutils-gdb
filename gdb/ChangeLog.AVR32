@@ -1,0 +1,33 @@
+2014-01-04  Jeremy Bennett  <jeremy.bennett@embecosm.com>
+
+	* aclocal.m4: Regenerated for AVR32.
+	* configure: Likewise.
+
+2014-01-03  Jeremy Bennett  <jeremy.bennett@embecosm.com>
+
+	* aclocal.m4: Regenerated for AVR32.
+	* config.in: Likewise.
+	* configure: Likewise.
+
+2013-12-31  Jeremy Bennett  <jeremy.bennett@embecosm.com>
+
+	AVR32 patch 30-gdb-6.7.1-avr32
+
+	* Makefile.in: Patches for AVR32.
+	* avr32-linux-tdep.c: Patches for AVR32.
+	* avr32-tdep.c: Patches for AVR32.
+	* avr32-tdep.h: Patches for AVR32.
+	* config/avr32/embed.mt: Patches for AVR32.
+	* config/avr32/linux.mt: Patches for AVR32.
+	* config/avr32/tm-linux.h: Patches for AVR32.
+	* configure.tgt: Patches for AVR32.
+	* regformats/reg-avr32.dat: Patches for AVR32.
+	* remote.c: Patches for AVR32.
+	* target.h: Patches for AVR32.
+
+2013-12-31  Jeremy Bennett  <jeremy.bennett@embecosm.com>
+
+	AVR32 patch 10-gdb-6.7.1-avr32-atmel-version
+
+	* version.in: Patches for AVR32.
+

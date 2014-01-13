@@ -404,6 +404,7 @@ enum elf_target_id
   ALPHA_ELF_DATA,
   ARM_ELF_DATA,
   AVR_ELF_DATA,
+  AVR32_ELF_DATA,
   BFIN_ELF_DATA,
   CRIS_ELF_DATA,
   FRV_ELF_DATA,
@@ -1613,6 +1614,10 @@ struct elf_obj_tdata
 
   /* Used by find_nearest_line entry point.  */
   void *line_info;
+
+  /* Used by AVR32 ELF relaxation code.  Contains an array of pointers
+     for each local symbol to the fragment where it is defined.  */
+  struct fragment **local_sym_frag;
 
   /* A place to stash dwarf1 info for this bfd.  */
   struct dwarf1_debug *dwarf1_find_line_info;

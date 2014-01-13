@@ -117,6 +117,15 @@ avr-*-*)
 	gdb_sim=../sim/avr/libsim.a
 	;;
 
+avr32*-*-linux*)
+	gdb_target_obs=avr32-linux-tdep.o
+	build_gdbserver=yes
+	;;
+
+avr32*-*-*)
+	gdb_target_obs=avr32-tdep.o
+	;;
+
 bfin-*-*linux*)
 	# Target: Blackfin Linux
 	gdb_target_obs="bfin-tdep.o bfin-linux-tdep.o linux-tdep.o"

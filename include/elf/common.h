@@ -375,6 +375,9 @@
 /* V850 backend magic number.  Written in the absense of an ABI.  */
 #define EM_CYGNUS_V850		0x9080
 
+/* AVR32 magic number, picked by IAR Systems. */
+#define EM_AVR32_OLD		0x18ad
+
 /* old S/390 backend magic number. Written in the absence of an ABI.  */
 #define EM_S390_OLD		0xa390
 

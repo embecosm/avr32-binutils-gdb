@@ -143,6 +143,7 @@ SFILES=	$(srcdir)/gdbreplay.c $(srcdir)/inferiors.c $(srcdir)/dll.c \
 	$(srcdir)/remote-utils.c $(srcdir)/server.c $(srcdir)/target.c \
 	$(srcdir)/thread-db.c $(srcdir)/utils.c \
 	$(srcdir)/linux-arm-low.c $(srcdir)/linux-bfin-low.c \
+	$(srcdir)/linux-avr32-low.c \
 	$(srcdir)/linux-cris-low.c $(srcdir)/linux-crisv32-low.c \
 	${srcdir}/i386-low.c $(srcdir)/i387-fp.c \
 	$(srcdir)/linux-ia64-low.c $(srcdir)/linux-low.c \
@@ -323,6 +324,7 @@ clean:
 	rm -f aarch64.c
 	rm -f reg-arm.c reg-bfin.c i386.c reg-ia64.c reg-m32r.c reg-m68k.c
 	rm -f reg-sh.c reg-sparc.c reg-spu.c amd64.c i386-linux.c
+	rm -f reg-avr32.c
 	rm -f reg-cris.c reg-crisv32.c amd64-linux.c reg-xtensa.c
 	rm -f reg-tilegx.c reg-tilegx32.c
 	rm -f arm-with-iwmmxt.c
@@ -562,6 +564,8 @@ arm-with-vfpv3.c : $(srcdir)/../regformats/arm-with-vfpv3.dat $(regdat_sh)
 	$(SHELL) $(regdat_sh) $(srcdir)/../regformats/arm-with-vfpv3.dat arm-with-vfpv3.c
 arm-with-neon.c : $(srcdir)/../regformats/arm-with-neon.dat $(regdat_sh)
 	$(SHELL) $(regdat_sh) $(srcdir)/../regformats/arm-with-neon.dat arm-with-neon.c
+reg-avr32.c : $(srcdir)/../regformats/reg-avr32.dat $(regdat_sh)
+	$(SHELL) $(regdat_sh) $(srcdir)/../regformats/reg-avr32.dat reg-avr32.c
 reg-bfin.c : $(srcdir)/../regformats/reg-bfin.dat $(regdat_sh)
 	$(SHELL) $(regdat_sh) $(srcdir)/../regformats/reg-bfin.dat reg-bfin.c
 reg-cris.c : $(srcdir)/../regformats/reg-cris.dat $(regdat_sh)

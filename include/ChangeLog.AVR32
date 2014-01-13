@@ -1,0 +1,14 @@
+2013-12-31  Jeremy Bennett  <jeremy.bennett@embecosm.com>
+
+	AVR32 patch 400-binutils-avr32-fixes
+
+	* elf/common.h: Patches for AVR32.
+
+2013-12-31  Jeremy Bennett  <jeremy.bennett@embecosm.com>
+
+	AVR32 patch 303-binutils-avr32-include
+
+	* dis-asm.h: Patches for AVR32.
+	* elf/avr32.h: Patches for AVR32.
+	* elf/common.h: Patches for AVR32.
+

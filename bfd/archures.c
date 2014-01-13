@@ -411,6 +411,12 @@ DESCRIPTION
 .#define bfd_mach_avrxmega5 105
 .#define bfd_mach_avrxmega6 106
 .#define bfd_mach_avrxmega7 107
+.  bfd_arch_avr32,     {* Atmel AVR32 *}
+.#define bfd_mach_avr32_ap	7000
+.#define bfd_mach_avr32_uc	3000
+.#define bfd_mach_avr32_ucr1    3001
+.#define bfd_mach_avr32_ucr2    3002
+.#define bfd_mach_avr32_ucr3    3003
 .  bfd_arch_bfin,        {* ADI Blackfin *}
 .#define bfd_mach_bfin          1
 .  bfd_arch_cr16,       {* National Semiconductor CompactRISC (ie CR16). *}
@@ -537,6 +543,7 @@ extern const bfd_arch_info_type bfd_alpha_arch;
 extern const bfd_arch_info_type bfd_arc_arch;
 extern const bfd_arch_info_type bfd_arm_arch;
 extern const bfd_arch_info_type bfd_avr_arch;
+extern const bfd_arch_info_type bfd_avr32_arch;
 extern const bfd_arch_info_type bfd_bfin_arch;
 extern const bfd_arch_info_type bfd_cr16_arch;
 extern const bfd_arch_info_type bfd_cr16c_arch;
@@ -627,6 +634,7 @@ static const bfd_arch_info_type * const bfd_archures_list[] =
     &bfd_arc_arch,
     &bfd_arm_arch,
     &bfd_avr_arch,
+    &bfd_avr32_arch,
     &bfd_bfin_arch,
     &bfd_cr16_arch,
     &bfd_cr16c_arch,

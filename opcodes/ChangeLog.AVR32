@@ -1,0 +1,28 @@
+2013-12-31  Jeremy Bennett  <jeremy.bennett@embecosm.com>
+
+	AVR32 patch 405-binutils-avr32-bug-avrtc633
+
+	* avr32-opc.c: Patches for AVR32.
+
+2013-12-31  Jeremy Bennett  <jeremy.bennett@embecosm.com>
+
+	AVR32 patch 401-binutils-avr32-fpu
+
+	* avr32-asm.c: Patches for AVR32.
+	* avr32-asm.h: Patches for AVR32.
+	* avr32-dis.c: Patches for AVR32.
+	* avr32-opc.c: Patches for AVR32.
+	* avr32-opc.h: Patches for AVR32.
+
+2013-12-31  Jeremy Bennett  <jeremy.bennett@embecosm.com>
+
+	AVR32 patch 305-binutils-avr32-opcodes
+
+	* avr32-asm.c: Patches for AVR32.
+	* avr32-asm.h: Patches for AVR32.
+	* avr32-dis.c: Patches for AVR32.
+	* avr32-opc.c: Patches for AVR32.
+	* avr32-opc.h: Patches for AVR32.
+	* configure.in: Patches for AVR32.
+	* disassemble.c: Patches for AVR32.
+

@@ -29,6 +29,7 @@
 #define ARCH_arc
 #define ARCH_arm
 #define ARCH_avr
+#define ARCH_avr32
 #define ARCH_bfin
 #define ARCH_cr16
 #define ARCH_cris
@@ -143,6 +144,11 @@ disassembler (abfd)
 #ifdef ARCH_avr
     case bfd_arch_avr:
       disassemble = print_insn_avr;
+      break;
+#endif
+#ifdef ARCH_avr32
+    case bfd_arch_avr32:
+      disassemble = print_insn_avr32;
       break;
 #endif
 #ifdef ARCH_bfin
@@ -549,6 +555,9 @@ disassembler_usage (stream)
 #endif
 #ifdef ARCH_arm
   print_arm_disassembler_options (stream);
+#endif
+#ifdef ARCH_avr32
+  print_avr32_disassembler_options (stream);
 #endif
 #ifdef ARCH_mips
   print_mips_disassembler_options (stream);
