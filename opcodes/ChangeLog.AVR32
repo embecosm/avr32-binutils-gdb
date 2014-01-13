@@ -1,3 +1,8 @@
+2014-01-13  Jeremy Bennett  <jeremy.bennett@embecosm.com>
+
+	* Makefile.in: Regenerated.
+	* configure: Regenerated.
+
 2013-12-31  Jeremy Bennett  <jeremy.bennett@embecosm.com>
 
 	AVR32 patch 405-binutils-avr32-bug-avrtc633

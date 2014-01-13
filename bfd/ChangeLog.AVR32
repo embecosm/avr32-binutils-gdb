@@ -1,3 +1,11 @@
+2014-01-13  Jeremy Bennett  <jeremy.bennett@embecosm.com>
+
+	* Makefile.in: Regenerated.
+	* aclocal.m4: Regenerated.
+	* bfd-in2.h: Regenerated.
+	* configure: Regenerated.
+	* libbfd.h: Regenerated.
+
 2014-01-03  Jeremy Bennett  <jeremy.bennett@embecosm.com>
 
 	* Makefile.in: Regenerated for AVR32.
