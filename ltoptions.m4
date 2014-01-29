@@ -8,7 +8,7 @@
 # unlimited permission to copy and/or distribute it, with or without
 # modifications, as long as this notice is preserved.
 
-# serial 7 ltoptions.m4
+# serial 6 ltoptions.m4
 
 # This is to help aclocal find these macros, as it can't see m4_define.
 AC_DEFUN([LTOPTIONS_VERSION], [m4_if([1])])
@@ -326,24 +326,9 @@ dnl AC_DEFUN([AM_DISABLE_FAST_INSTALL], [])
 # MODE is either `yes' or `no'.  If omitted, it defaults to `both'.
 m4_define([_LT_WITH_PIC],
 [AC_ARG_WITH([pic],
-    [AS_HELP_STRING([--with-pic@<:@=PKGS@:>@],
+    [AS_HELP_STRING([--with-pic],
 	[try to use only PIC/non-PIC objects @<:@default=use both@:>@])],
-    [lt_p=${PACKAGE-default}
-    case $withval in
-    yes|no) pic_mode=$withval ;;
-    *)
-      pic_mode=default
-      # Look at the argument we got.  We use all the common list separators.
-      lt_save_ifs="$IFS"; IFS="${IFS}$PATH_SEPARATOR,"
-      for lt_pkg in $withval; do
-	IFS="$lt_save_ifs"
-	if test "X$lt_pkg" = "X$lt_p"; then
-	  pic_mode=yes
-	fi
-      done
-      IFS="$lt_save_ifs"
-      ;;
-    esac],
+    [pic_mode="$withval"],
     [pic_mode=default])
 
 test -z "$pic_mode" && pic_mode=m4_default([$1], [default])

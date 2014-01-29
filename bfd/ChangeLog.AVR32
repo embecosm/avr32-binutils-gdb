@@ -1,3 +1,10 @@
+2014-01-29  Jeremy Bennett  <jeremy.bennett@embecosm.com>
+
+	* aclocal.m4: Regnerated.
+	* configure: Regnerated.
+	* po/SRC-POTFILES.in: Regnerated.
+	* po/bfd.pot: Regnerated.
+
 2014-01-13  Jeremy Bennett  <jeremy.bennett@embecosm.com>
 
 	* Makefile.in: Regenerated.
