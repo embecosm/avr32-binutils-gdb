@@ -1,5 +1,14 @@
 2014-01-29  Jeremy Bennett  <jeremy.bennett@embecosm.com>
 
+	* elf32-avr32.c (avr32_size_frags, avr32_elf_relocate_section)
+	(avr32_elf_relocate_section): Comment out unused variables.
+	(avr32_elf_grok_prstatus, avr32_elf_grok_psinfo): Replace
+	core_signal, core_pid, core_program and core_command by
+	corresponding members of core struct.
+	* po/bfd.pot: Regenerated.
+
+2014-01-29  Jeremy Bennett  <jeremy.bennett@embecosm.com>
+
 	* aclocal.m4: Regnerated.
 	* configure: Regnerated.
 	* po/SRC-POTFILES.in: Regnerated.

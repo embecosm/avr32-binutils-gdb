@@ -1,0 +1,4 @@
+2014-01-29  Jeremy Bennett  <jeremy.bennett@embecosm.com>
+
+	* configure: Regenerated.
+	* configure.tgt: Add avr32.

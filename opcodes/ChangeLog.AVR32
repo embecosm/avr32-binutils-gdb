@@ -1,3 +1,10 @@
+2014-01-29  Jeremy Bennett  <jeremy.bennett@embecosm.com>
+
+	* Makefile.in: Regenerated.
+	* configure: Regenerated.
+	* po/POTFILES.in: Regenerated.
+	* po/opcodes.pot: Regenerated.
+
 2014-01-13  Jeremy Bennett  <jeremy.bennett@embecosm.com>
 
 	* Makefile.in: Regenerated.

@@ -1,3 +1,37 @@
+2014-01-29  Jeremy Bennett  <jeremy.bennett@embecosm.com>
+
+        * avr32-tdep.c (avr32_register_type): Return correct types.
+        (avr32_register_name): Add gdbarch parameter.
+        (avr32_set_sysreg_command): Use gdb_byte as buffer type, and
+	endian parameter when storing.
+        (avr32_show_sysreg_command): Use gdb_byte as buffer type, and
+	endian parameter when extracting.
+        (avr32_breakpoint_from_pc): Add gdbarch parameter.
+        (gdb_print_insn_avr32): use target_gdbarch to get current arch.
+        (avr32_return_value): Add function to arg list, make buffers gdb_byte.
+        (avr32_analyze_prologue): Add gdbarch parameter, add endian
+	parameter when reading memory.
+        (avr32_skip_prologue): Add gdbarch parameter, use gdb_byte buffer.
+        (avr32_frame_align): Use gdb_byte buffer.
+        (avr32_unwind_sp, avr32_unwind_pc): Use gdb_byte buffer and add
+	endian paremter when extracting value.
+        (avr32_dummy_id): Renamed from avr32_unwind_dummy_id and
+	restructure to use THIS frame.
+        (avr32_frame_cache): Get gdbarch from frame.
+        (avr32_frame_prev_register): Updated prototype, and modified
+	contents accordingly
+        (avr32_frame_base_address): Created.
+	(struct avr32_frame_unwind): Rewritten with designated initializers.
+        (avr32_frame_base_sniffer): New, replaces avr32_frame_sniffer.
+        (avr32_gdbarch_init): Replace set_gdbarch_unwind_dummy_id with
+	set_gdbarch_dummy_id, use frame base rather than frame unwind sniffers.
+        (_initialize_avr32_tdep): Added extern declaration.
+        * gnulib/aclocal.m4: Regenerated.
+        * gnulib/configure: Regenerated.
+        * remote.c (remote_xfer_partial): Add support for
+	TARGET_OBJECT_SYSREG.
+        * target.h (enum target_object): Add TARGET_OBJECT_SYSREG.
+
 2014-01-04  Jeremy Bennett  <jeremy.bennett@embecosm.com>
 
 	* aclocal.m4: Regenerated for AVR32.

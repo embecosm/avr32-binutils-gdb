@@ -1366,6 +1366,7 @@ enum {
   PACKET_Qbtrace_off,
   PACKET_Qbtrace_bts,
   PACKET_qXfer_btrace,
+  PACKET_qPart_sysreg,
   PACKET_MAX
 };
 
@@ -8893,6 +8894,112 @@ remote_xfer_partial (struct target_ops *ops, enum target_object object,
       return xfered;
     }
 
+  /* This is f***ed up, but so is the existing code.  We happen to be
+     able to support writes, so we don't want arbitrary limitations
+     preventing us from doing so.  There's also a warning below that
+     we shouldn't do something, so I guess we probably shouldn't (but
+     if we don't, the rest of the function is worthless to us.)
+     Better duplicate most of the code instead.  */
+  if (object == TARGET_OBJECT_SYSREG)
+    {
+      struct packet_config *cfg = NULL;
+      const char *object_name = NULL;
+
+      switch (object)
+       {
+       case TARGET_OBJECT_SYSREG:
+         cfg = &remote_protocol_packets[PACKET_qPart_sysreg];
+         if (cfg->support != PACKET_DISABLE)
+           object_name = "sysreg";
+         break;
+       }
+
+      if (object_name == NULL)
+       return -1;
+
+      /* Note: a zero OFFSET and LEN can be used to query the minimum
+        buffer size.  */
+      if (offset == 0 && len == 0)
+       return (get_remote_packet_size ());
+
+      /* except for querying the minimum buffer size, target must be open */
+      if (!rs->remote_desc)
+       error ("remote query is only available after target open");
+
+      gdb_assert (annex != NULL);
+      for (i = 0; annex[i]; i++)
+       /* Bad caller may have sent forbidden characters.  */
+       gdb_assert (isprint (annex[i]) && annex[i] != '$' && annex[i] != '#');
+
+      if (writebuf)
+       {
+         LONGEST body_len, header_len, count;
+         long max_len;
+         char* buf = rs->buf;
+         /* TODO: Use xsnprintf() like other parts of this code does? */
+         max_len = get_remote_packet_size ();
+         header_len = snprintf(rs->buf, max_len - 5,
+                               "qPart:%s:write:%s:%s:",
+                               object_name, annex ? annex : "",
+                               phex_nz (offset, sizeof offset));
+         body_len = max_len - header_len - 5;
+         if (body_len < 0)
+           return -1;
+
+         /* Each byte takes two hex characters + null character at the end */
+         count = len;
+         if (count > (body_len - 1) / 2)
+           count = (body_len - 1) / 2;
+
+         bin2hex(writebuf, rs->buf + header_len, count);
+         i = putpkt(rs->buf);
+         if (i < 0)
+           return i;
+
+         rs->buf[0] = '\0';
+         getpkt(&rs->buf, &rs->buf_size, 0);
+         if (packet_ok(buf, cfg) != PACKET_OK)
+           return -1;
+
+         p2 = &buf[0];
+         body_len = 0;
+         while (*p2)
+           body_len = (body_len << 4) + fromhex (*p2++);
+
+         i = body_len;
+       }
+      else
+       {
+         LONGEST n = min((get_remote_packet_size () - 5) / 2, len);
+         LONGEST req_len;
+         char* buf = rs->buf;
+
+         req_len = snprintf(rs->buf, get_remote_packet_size () - 5,
+                            "qPart:%s:read:%s:%s,%s",
+                            object_name, annex,
+                            phex_nz (offset, sizeof(offset)),
+                            phex_nz (n, sizeof(n)));
+         if (req_len > rs->buf_size - 5)
+           return -1;
+
+         i = putpkt(rs->buf);
+         if (i < 0)
+           return i;
+
+         rs->buf[0] = '\0';
+         len = get_remote_packet_size ();
+         getpkt(&rs->buf, &rs->buf_size, 0);
+         if (packet_ok(buf, cfg) != PACKET_OK)
+           return -1;
+         if (rs->buf[0] == 'O' && rs->buf[1] == 'K' && rs->buf[2] == '\0')
+           return 0;
+
+         i = hex2bin(rs->buf, readbuf, len);
+       }
+
+      return i;
+    }
+
   /* Handle SPU memory using qxfer packets.  */
   if (object == TARGET_OBJECT_SPU)
     {
@@ -12241,6 +12348,9 @@ Show the maximum size of the address (in bits) in a memory packet."), NULL,
 
   add_packet_config_cmd (&remote_protocol_packets[PACKET_qXfer_btrace],
        "qXfer:btrace", "read-btrace", 0);
+  add_packet_config_cmd (&remote_protocol_packets[PACKET_qPart_sysreg],
+			 "qPart_sysreg", "sysreg",
+			 0);
 
   /* Keep the old ``set remote Z-packet ...'' working.  Each individual
      Z sub-packet has its own set and show commands, but users may

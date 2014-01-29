@@ -199,7 +199,9 @@ enum target_object
   /* OpenVMS Unwind Information Block.  */
   TARGET_OBJECT_OPENVMS_UIB,
   /* Branch trace data, in XML format.  */
-  TARGET_OBJECT_BTRACE
+  TARGET_OBJECT_BTRACE,
+  /* System Register.  See "avr32-tdep.c and "remote.c". */
+  TARGET_OBJECT_SYSREG
   /* Possible future objects: TARGET_OBJECT_FILE, ...  */
 };
 

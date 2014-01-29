@@ -33,7 +33,6 @@
 #include "regcache.h"
 #include "regset.h"
 #include "arch-utils.h"
-#include "gdb_string.h"
 
 #include "avr32-tdep.h"
 #include "elf-bfd.h"
@@ -79,14 +78,29 @@ struct avr32_frame_cache
   CORE_ADDR saved_sp;
 };
 
+
 static struct type *
 avr32_register_type(struct gdbarch *gdbarch, int reg_nr)
 {
-  return builtin_type_int;
-}
+  switch (reg_nr)
+    {
+    case AVR32_REG_SP:
+      /* A pointer to data */
+      return builtin_type (gdbarch)->builtin_data_ptr;
+
+    case AVR32_REG_LR:
+    case AVR32_REG_PC:
+      /* A pointer to code */
+      return builtin_type (gdbarch)->builtin_func_ptr;
+
+    default:
+      /* All orther regs are unsigned ints */
+      return builtin_type (gdbarch)->builtin_uint32;
+    }	  
+}	/* avr32_register_type () */
 
 static const char *
-avr32_register_name(int reg_nr)
+avr32_register_name(struct gdbarch *gdbarch, int reg_nr)
 {
   static const char *register_names[] =
     {
@@ -132,10 +146,11 @@ avr32_show_regs_command (char *argv, int from_tty)
 static void
 avr32_set_sysreg_command(char *args, int from_tty)
 {
+  struct gdbarch *gdbarch = target_gdbarch ();
   LONGEST ret;
   CORE_ADDR addr, value;
   char *eq, *value_s, *endptr;
-  char buffer[4];
+  gdb_byte buffer[4];
 
   if (!args)
     goto show_usage;
@@ -155,7 +170,7 @@ avr32_set_sysreg_command(char *args, int from_tty)
   if (*value_s == '\0' || *endptr != '\0')
     goto show_usage;
 
-  store_unsigned_integer(buffer, 4, value);
+  store_unsigned_integer(buffer, 4, gdbarch_byte_order (gdbarch), value);
 
   ret = target_write(&current_target, TARGET_OBJECT_SYSREG, "",
 		     buffer, addr, 4);
@@ -171,10 +186,11 @@ show_usage:
 static void
 avr32_show_sysreg_command(char *args, int from_tty)
 {
+  struct gdbarch *gdbarch = target_gdbarch ();
   LONGEST ret;
   CORE_ADDR addr, value;
   char *endptr;
-  char value_raw[4];
+  gdb_byte value_raw[4];
 
   if (!args)
     goto show_usage;
@@ -183,13 +199,13 @@ avr32_show_sysreg_command(char *args, int from_tty)
   if (*args == '\0' || *endptr != '\0')
     goto show_usage;
 
-  ret = target_read(&current_target, TARGET_OBJECT_SYSREG, "",
-		    value_raw, addr, 4);
+  ret = target_read (&current_target, TARGET_OBJECT_SYSREG, "",
+		     value_raw, addr, 4);
   if (ret != 4)
     printf_unfiltered("Failed to read system register %lu.\n", addr);
   else
     {
-      value = extract_unsigned_integer(value_raw, 4);
+      value = extract_unsigned_integer(value_raw, 4, gdbarch_byte_order (gdbarch));
       printf_unfiltered("SYSREG[%lu] = 0x%lx\n", addr, value);
     }
 
@@ -200,18 +216,19 @@ show_usage:
 }
 
 static const unsigned char *
-avr32_breakpoint_from_pc(CORE_ADDR *pcptr, int *lenptr)
+avr32_breakpoint_from_pc(struct gdbarch *gdbarch, CORE_ADDR *pcptr, int *lenptr)
 {
-  struct gdbarch_tdep *tdep = gdbarch_tdep(current_gdbarch);
+  struct gdbarch_tdep *tdep = gdbarch_tdep(gdbarch);
 
   *lenptr = tdep->avr32_breakpoint_size;
   return tdep->avr32_breakpoint;
 }
 
 static int
-gdb_print_insn_avr32(bfd_vma memaddr, disassemble_info *info)
+gdb_print_insn_avr32 (bfd_vma memaddr,
+		      disassemble_info *info)
 {
-  info->endian = gdbarch_byte_order(current_gdbarch);
+  info->endian = gdbarch_byte_order(target_gdbarch ());
   return print_insn_avr32(memaddr, info);
 }
 
@@ -230,8 +247,11 @@ avr32_write_pc(struct regcache *regcache, CORE_ADDR pc)
    from WRITEBUF into REGCACHE.  */
 
 static enum return_value_convention
-avr32_return_value(struct gdbarch *gdbarch, struct type *type,
-		   struct regcache *regcache, gdb_byte *readbuf,
+avr32_return_value(struct gdbarch *gdbarch,
+		   struct value *function,
+		   struct type *type,
+		   struct regcache *regcache,
+		   gdb_byte *readbuf,
 		   const gdb_byte *writebuf)
 {
   enum type_code code = TYPE_CODE(type);
@@ -267,7 +287,7 @@ avr32_return_value(struct gdbarch *gdbarch, struct type *type,
       else if (len <= 8)
 	{
 	  regcache_raw_read(regcache, AVR32_REG_R10, readbuf);
-	  regcache_raw_read(regcache, AVR32_REG_R11, (char *)readbuf + 4);
+	  regcache_raw_read(regcache, AVR32_REG_R11, &(readbuf[4]));
 	}
       else
 	internal_error(__FILE__, __LINE__,
@@ -281,7 +301,7 @@ avr32_return_value(struct gdbarch *gdbarch, struct type *type,
 	{
 	  regcache_raw_write(regcache, AVR32_REG_R10, writebuf);
 	  regcache_raw_write_part(regcache, AVR32_REG_R11, 0,
-				  len - 4, (char *)writebuf + 4);
+				  len - 4, &(writebuf[4]));
 	}
       else
 	internal_error(__FILE__, __LINE__,
@@ -324,7 +344,7 @@ sign_extend (int value, int bits)
    will not be analyzed further than current_pc, which indicates how
    much of the function has actually been executed.  */
 static CORE_ADDR
-avr32_analyze_prologue (CORE_ADDR pc, CORE_ADDR current_pc,
+avr32_analyze_prologue (struct gdbarch *gdbarch, CORE_ADDR pc, CORE_ADDR current_pc,
 			struct avr32_frame_cache *cache)
 {
   ULONGEST insn;
@@ -336,9 +356,10 @@ avr32_analyze_prologue (CORE_ADDR pc, CORE_ADDR current_pc,
   cache->uses_fp = 0;
   while (pc < current_pc)
     {
-      insn = read_memory_unsigned_integer(pc, 2) << 16;
+      insn = read_memory_unsigned_integer(pc, 2, gdbarch_byte_order (gdbarch))
+	<< 16;
       if (IS_EXTENDED(insn))
-	  insn = read_memory_unsigned_integer(pc, 4);
+	  insn = read_memory_unsigned_integer(pc, 4, gdbarch_byte_order (gdbarch));
 
       if (IS_PUSHM(insn))
 	{
@@ -445,14 +466,14 @@ avr32_analyze_prologue (CORE_ADDR pc, CORE_ADDR current_pc,
    A "sub sp, x" instruction to allocate space for local variables. */
 
 static CORE_ADDR
-avr32_skip_prologue(CORE_ADDR start_pc)
+avr32_skip_prologue(struct gdbarch *gdbarch, CORE_ADDR start_pc)
 {
-  unsigned char insn[4];
+  gdb_byte insn[4];
   CORE_ADDR pc = start_pc;
 
   /* Check if any registers are saved. If not, we may safely(?) assume
      that the other steps aren't taken */
-  read_memory(pc, (char *)insn, sizeof(insn));
+  read_memory(pc, insn, sizeof(insn));
   if ((insn[0] & 0xf0) == 0xd0 && (insn[1] & 0x0f) == 0x01)
     /* pushm instruction */
     pc += 2;
@@ -464,13 +485,13 @@ avr32_skip_prologue(CORE_ADDR start_pc)
     return pc;
 
   /* Check for frame pointer initialization */
-  read_memory(pc, (char *)insn, sizeof(insn));
+  read_memory(pc, insn, sizeof(insn));
   if (insn[0] == 0x1a && insn[1] == 0x97)
     /* mov r7, sp */
     pc += 2;
 
   /* Check for stack frame allocation */
-  read_memory(pc, (char *)insn, sizeof(insn));
+  read_memory(pc, insn, sizeof(insn));
   if ((insn[0] & 0xf0) == 0x20 && (insn[1] & 0x0f) == 0x0d)
     /* sub sp, x where -512 <= x <= 508 and x & 3 == 0 */
     pc += 2;
@@ -490,25 +511,26 @@ avr32_frame_align(struct gdbarch *gdbarch, CORE_ADDR sp)
 static CORE_ADDR
 avr32_unwind_sp(struct gdbarch *gdbarch, struct frame_info *next_frame)
 {
-  char buf[sizeof(long)];
+  gdb_byte buf[sizeof(long)];
   frame_unwind_register(next_frame, AVR32_REG_SP, buf);
-  return extract_unsigned_integer(buf, sizeof(buf));
+  return extract_unsigned_integer(buf, sizeof(buf), gdbarch_byte_order (gdbarch));
 }
 
 static CORE_ADDR
 avr32_unwind_pc(struct gdbarch *gdbarch, struct frame_info *next_frame)
 {
-  char buf[sizeof(long)];
+  gdb_byte buf[sizeof(long)];
   frame_unwind_register(next_frame, AVR32_REG_PC, buf);
-  return extract_unsigned_integer(buf, sizeof(buf));
+  return extract_unsigned_integer(buf, sizeof(buf), gdbarch_byte_order (gdbarch));
 }
 
 static struct frame_id
-avr32_unwind_dummy_id(struct gdbarch *gdbarch, struct frame_info *next_frame)
+avr32_dummy_id (struct gdbarch *gdbarch, struct frame_info *this_frame)
 {
-  return frame_id_build(avr32_unwind_sp(gdbarch, next_frame),
-			frame_pc_unwind(next_frame));
-}
+  return frame_id_build (get_frame_sp (this_frame), get_frame_pc (this_frame));
+
+}	/* avr32_dummy_id () */
+
 
 static struct avr32_frame_cache *
 avr32_alloc_frame_cache (void)
@@ -527,6 +549,7 @@ avr32_alloc_frame_cache (void)
 static struct avr32_frame_cache *
 avr32_frame_cache (struct frame_info *next_frame, void **this_cache)
 {
+  struct gdbarch *gdbarch = get_frame_arch (next_frame);
   struct avr32_frame_cache *cache;
   CORE_ADDR current_pc;
   int i;
@@ -541,10 +564,10 @@ avr32_frame_cache (struct frame_info *next_frame, void **this_cache)
      almost never the case. */
   cache->base = frame_unwind_register_unsigned (next_frame, AVR32_REG_FP);
 
-  cache->pc = frame_func_unwind (next_frame,NORMAL_FRAME);
-  current_pc = frame_pc_unwind (next_frame);
+  /* cache->pc = frame_func_unwind (next_frame,NORMAL_FRAME); TODO */
+  current_pc = gdbarch_unwind_pc (gdbarch, next_frame);
   if (cache->pc != 0)
-    avr32_analyze_prologue (cache->pc, current_pc, cache);
+    avr32_analyze_prologue (gdbarch, cache->pc, current_pc, cache);
 
   if (!cache->uses_fp)
     {
@@ -565,49 +588,53 @@ avr32_frame_cache (struct frame_info *next_frame, void **this_cache)
   return cache;
 }
 
-static void
-avr32_frame_prev_register (struct frame_info *next_frame, void **this_cache,
-			   int regnum, int *optimizedp,
-			   enum lval_type *lvalp, CORE_ADDR *addrp,
-			   int *realnump, gdb_byte *valuep)
+
+/* TODO. Just updated the prototype */
+static struct value *
+avr32_frame_prev_register (struct frame_info *this_frame,
+			   void **this_cache,
+			   int regnum)
 {
-  struct avr32_frame_cache *cache = avr32_frame_cache(next_frame, this_cache);
+  struct gdbarch *gdbarch = get_frame_arch (this_frame);
+  struct avr32_frame_cache *info = avr32_frame_cache (this_frame, this_cache);
 
   gdb_assert (regnum >= 0);
 
-  if (regnum == gdbarch_sp_regnum(current_gdbarch) && cache->saved_sp)
+  if (regnum == gdbarch_sp_regnum (gdbarch) && info->saved_sp)
     {
-      *optimizedp = 0;
-      *lvalp = not_lval;
-      *addrp = 0;
-      *realnump = -1;
-      if (valuep)
-	store_unsigned_integer(valuep, 4, cache->saved_sp);
-      return;
+      /* *optimizedp = 0; */
+      /* *lvalp = not_lval; */
+      /* *addrp = 0; */
+      /* *realnump = -1; */
+      /* if (valuep) */
+      /* 	{ */
+      /* 	  store_unsigned_integer(valuep, 4, gdbarch_byte_order (gdbarch), */
+      /* 				 info->saved_sp); */
+      /* 	} */
+      /* return; */
     }
 
   /* The PC of the previous frame is stored in LR of the current frame. */
   if (regnum == AVR32_REG_PC)
     regnum = AVR32_REG_LR;
 
-  if (regnum < AVR32_NUM_REGS && cache->saved_regs[regnum] != -1)
+  if (regnum < AVR32_NUM_REGS && info->saved_regs[regnum] != -1)
     {
-      *optimizedp = 0;
-      *lvalp = lval_memory;
-      *addrp = cache->saved_regs[regnum];
-      *realnump = -1;
-      if (valuep)
-	read_memory(*addrp, valuep, register_size(current_gdbarch, regnum));
-      return;
+      /* *optimizedp = 0; */
+      /* *lvalp = lval_memory; */
+      /* *addrp = info->saved_regs[regnum]; */
+      /* *realnump = -1; */
+      /* if (valuep) */
+      /* 	read_memory(*addrp, valuep, register_size(gdbarch, regnum)); */
+      /* return; */
     }
 
-  *optimizedp = 0;
-  *lvalp = lval_register;
-  *addrp = 0;
-  *realnump = regnum;
-  if (valuep)
-    frame_unwind_register (next_frame, (*realnump), valuep);
-}
+  /* if (valuep) */
+  /*   frame_unwind_register (next_frame, (*realnump), valuep); */
+
+  return  NULL;			/* TODO: Placeholder */
+
+}	/* avr32_frame_prev_register () */
 
 static void
 avr32_frame_this_id (struct frame_info *next_frame, void **this_cache,
@@ -622,17 +649,46 @@ avr32_frame_this_id (struct frame_info *next_frame, void **this_cache,
   *this_id = frame_id_build (cache->saved_sp, cache->pc);
 }
 
+/*! Return the base address of the frame
+
+    For AVR32, the base address is the stack pointer of the previous frame.
+
+    @note The implementations has changed since GDB 6.8, since we are now
+          provided with the address of THIS frame, rather than the NEXT frame.
+
+    @param[in] this_frame      The current stack frame.
+    @param[in] prologue_cache  Any cached prologue for THIS function.
+    @return                    The frame base address */
+static CORE_ADDR
+avr32_frame_base_address (struct frame_info  *this_frame,
+			  void              **prologue_cache) 
+{
+  return  (CORE_ADDR) get_frame_sp (get_prev_frame (this_frame));
+
+}	/* avr32_frame_base_address() */
+
+
 static const struct frame_unwind avr32_frame_unwind = {
-  NORMAL_FRAME,
-  avr32_frame_this_id,
-  avr32_frame_prev_register
+  .type = NORMAL_FRAME,
+  .stop_reason   = default_frame_unwind_stop_reason,
+  .this_id = avr32_frame_this_id,
+  .prev_register = avr32_frame_prev_register,
+  .sniffer       = default_frame_sniffer,
 };
 
 /* Default unwind sniffer. This one must always return something */
-static const struct frame_unwind *
-avr32_frame_sniffer (struct frame_info *next_frame)
+static const struct frame_base *
+avr32_frame_base_sniffer (struct frame_info *this_frame)
 {
-  return &avr32_frame_unwind;
+  static const struct frame_base fb =
+    {
+      .unwind      = &avr32_frame_unwind,
+      .this_base   = avr32_frame_base_address,
+      .this_locals = avr32_frame_base_address,
+      .this_args   = avr32_frame_base_address
+    };
+
+  return &fb;
 }
 
 /* Supply register REGNUM from the buffer specified by GREGS and LEN
@@ -762,7 +818,7 @@ avr32_gdbarch_init (struct gdbarch_info info, struct gdbarch_list *arches)
   set_gdbarch_frame_align(gdbarch, avr32_frame_align);
   set_gdbarch_unwind_sp(gdbarch, avr32_unwind_sp);
   set_gdbarch_unwind_pc(gdbarch, avr32_unwind_pc);
-  set_gdbarch_unwind_dummy_id(gdbarch, avr32_unwind_dummy_id);
+  set_gdbarch_dummy_id(gdbarch, avr32_dummy_id);
 
   gdbarch_init_osabi(info, gdbarch);
 
@@ -773,11 +829,13 @@ avr32_gdbarch_init (struct gdbarch_info info, struct gdbarch_list *arches)
     set_gdbarch_regset_from_core_section(gdbarch,
 					 avr32_regset_from_core_section);
 
-  frame_unwind_append_sniffer(gdbarch, dwarf2_frame_sniffer);
-  frame_unwind_append_sniffer(gdbarch, avr32_frame_sniffer);
+  frame_base_append_sniffer(gdbarch, dwarf2_frame_base_sniffer);
+  frame_base_append_sniffer(gdbarch, avr32_frame_base_sniffer);
 
   return gdbarch;
 }
+
+extern initialize_file_ftype _initialize_avr32_tdep; /* -Wmissing-prototypes */
 
 void
 _initialize_avr32_tdep(void)

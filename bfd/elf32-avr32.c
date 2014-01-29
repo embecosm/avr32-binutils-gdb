@@ -2273,7 +2273,8 @@ avr32_size_frags(bfd *abfd, asection *sec, struct bfd_link_info *info)
       Elf_Internal_Rela *rela;
       struct got_entry *got;
       bfd_vma symval, r_offset, addend, addr;
-      bfd_signed_vma size_adjust = 0, distance;
+      bfd_signed_vma size_adjust = 0;
+      /* bfd_signed_vma distance; */
       unsigned long r_symndx;
       bfd_boolean defined = TRUE, dynamic = FALSE;
       unsigned char sym_type;
@@ -2494,7 +2495,7 @@ avr32_size_frags(bfd *abfd, asection *sec, struct bfd_link_info *info)
 		symval += delta;
 	    }
 
-	  distance = symval - addr;
+	  /* distance = symval - addr; */
 
 	  /* First, try to make a direct reference.  If the symbol is
 	     dynamic or undefined, we must take care not to change its
@@ -3327,9 +3328,9 @@ avr32_elf_relocate_section(bfd *output_bfd, struct bfd_link_info *info,
 	  if (h->root.type == bfd_link_hash_defined
 	      || h->root.type == bfd_link_hash_defweak)
 	    {
-	      bfd_boolean dyn;
+	      /* bfd_boolean dyn; */
 
-	      dyn = htab->root.dynamic_sections_created;
+	      /* dyn = htab->root.dynamic_sections_created; */
 	      sec = h->root.u.def.section;
 
 	      if (sec->output_section)
@@ -3456,7 +3457,7 @@ avr32_elf_relocate_section(bfd *output_bfd, struct bfd_link_info *info,
 	      Elf_Internal_Rela outrel;
 	      bfd_byte *loc;
 	      bfd_boolean skip, relocate;
-	      struct elf_avr32_link_hash_entry *avrh;
+	      /* struct elf_avr32_link_hash_entry *avrh; */
 
 	      pr_debug("Going to generate dynamic reloc...\n");
 
@@ -3481,7 +3482,7 @@ avr32_elf_relocate_section(bfd *output_bfd, struct bfd_link_info *info,
 		memset(&outrel, 0, sizeof(outrel));
 	      else
 		{
-		  avrh = (struct elf_avr32_link_hash_entry *)h;
+		  /* avrh = (struct elf_avr32_link_hash_entry *)h; */
 		  /* h->dynindx may be -1 if this symbol was marked to
 		     become local.  */
 		  if (h == NULL
@@ -3825,10 +3826,10 @@ avr32_elf_grok_prstatus(bfd *abfd, Elf_Internal_Note *note)
     return FALSE;
 
   /* pr_cursig */
-  elf_tdata(abfd)->core_signal = bfd_get_16(abfd, note->descdata + 12);
+  elf_tdata(abfd)->core->signal = bfd_get_16(abfd, note->descdata + 12);
 
   /* pr_pid */
-  elf_tdata(abfd)->core_pid = bfd_get_32(abfd, note->descdata + 24);
+  elf_tdata(abfd)->core->pid = bfd_get_32(abfd, note->descdata + 24);
 
   /* Make a ".reg/999" section for pr_reg. The size is for 16
      general-purpose registers, SR and r12_orig (18 * 4 = 72).  */
@@ -3843,9 +3844,9 @@ avr32_elf_grok_psinfo(bfd *abfd, Elf_Internal_Note *note)
   if (note->descsz != 128)
     return FALSE;
 
-  elf_tdata(abfd)->core_program
+  elf_tdata(abfd)->core->program
     = _bfd_elfcore_strndup(abfd, note->descdata + 32, 16);
-  elf_tdata(abfd)->core_command
+  elf_tdata(abfd)->core->command
     = _bfd_elfcore_strndup(abfd, note->descdata + 48, 80);
 
   /* Note that for some reason, a spurious space is tacked
@@ -3853,7 +3854,7 @@ avr32_elf_grok_psinfo(bfd *abfd, Elf_Internal_Note *note)
      implementations, so strip it off if it exists.  */
 
   {
-    char *command = elf_tdata (abfd)->core_command;
+    char *command = elf_tdata (abfd)->core->command;
     int n = strlen (command);
 
     if (0 < n && command[n - 1] == ' ')
