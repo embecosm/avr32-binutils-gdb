@@ -46,23 +46,23 @@ CR16 target operand qualifiers and its size (in bits):
 @table @samp
 @item Immediate Operand
 - s ---- 4 bits
-@item 
+@item 1
 - m ---- 16 bits, for movb and movw instructions.
-@item 
+@item 2
 - m ---- 20 bits, movd instructions.
-@item 
+@item 3
 - l ---- 32 bits
 
 @item Absolute Operand
 - s ---- Illegal specifier for this operand.
-@item  
+@item 4
 - m ---- 20 bits, movd instructions.
 
 @item Displacement Operand
 - s ---- 8 bits
-@item
+@item 5
 - m ---- 16 bits
-@item 
+@item 6
 - l ---- 24 bits
 @end table
 
